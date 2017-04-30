@@ -1,0 +1,21 @@
+{
+    "name": "bestit/shopware-mage-tasks",
+    "description": "Common tasks to deploy a shopware project using MagePHP",
+    "keywords": ["Shopware", "MagePHP", "Deployment"],
+    "require": {
+        "andres-montanez/magallanes": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BestIt\\Mage\\Tasks\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ahmad El-Bardan",
+            "email": "ahmad.el-bardan@bestit-online.de"
+        }
+    ],
+    "minimum-stability": "stable"
+}
