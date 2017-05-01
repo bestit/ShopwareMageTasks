@@ -83,7 +83,7 @@ For more information about what you can do check out the [documentation](http://
 You just need to run the deployment script:
 
 ```
-vendor/bin/mage deploy <evironment>
+vendor/bin/mage deploy <environment>
 ```
 
 ## License
