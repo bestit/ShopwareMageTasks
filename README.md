@@ -6,6 +6,7 @@ This package includes common tasks to deploy a shopware project using [MagePHP](
 
 ```yaml
 magephp:
+    admins: { 'el-bardan', 'emtii' }
     custom_tasks:
         - BestIt\Mage\Tasks\Deploy\ReplacePlaceHoldersTask
         - BestIt\Mage\Tasks\Deploy\SyncConfigTask
@@ -43,6 +44,7 @@ magephp:
                 - deploy/plugins # Pushes plugins (>=5.2 system) to server(s).
                 - deploy/migrations # Pushes SQL migrations to server(s).
                 - deploy/themes # Pushes themes to server(s).
+                - shopware/create-admins # Creates admin users from admins parameter in .yml file.
                 - shopware/update-plugins # Installs/Updates all (>=5.2 system) plugins on server(s).
                 - shopware/update-legacy-plugins # Installs/Updates all (legacy) plugins on server(s).
                 - shopware/migrate # Executes all SQL migrations on server(s).
