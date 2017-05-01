@@ -58,17 +58,18 @@ class AdminUsersTask extends AbstractTask
 
         // create admin user for every option
         foreach ($options as $option) {
-            // prepare user
+            // prepare user data
             $userData = [
                 '--email=' . $option . '@bestit-online.de',
                 '--username=' . $option,
                 '--name=best it | ' . $option,
                 '--locale=en_GB',
-                '--password' . md5($option)
+                '--password=' . md5($option)
             ];
 
             $user = implode(' ', $userData);
 
+            // prepare command
             $cmd = sprintf(
                 'php %s/bin/console sw:admin:create %s',
                 $this->runtime->getEnvOption('from', '.'),
@@ -78,6 +79,7 @@ class AdminUsersTask extends AbstractTask
             /** @var Process $process */
             $process = $this->runtime->runCommand($cmd);
 
+            // only return if command exited with error
             if ($process->isSuccessful() === false) {
                 return $process->isSuccessful();
             }
