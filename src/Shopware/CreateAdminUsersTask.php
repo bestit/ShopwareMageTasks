@@ -47,10 +47,10 @@ class AdminUsersTask extends AbstractTask
     public function execute(): bool
     {
         // get options from .yml
-        $options = $this->runtime->getEnvOption(self::ENV_OPTION_ADMINS, []);
+        $options = (array) $this->runtime->getEnvOption(self::ENV_OPTION_ADMINS, []);
 
         // check for existing parameters
-        if (!is_array($options) || !array_key_exists(self::ENV_OPTION_ADMINS, $options)) {
+        if (!array_key_exists(self::ENV_OPTION_ADMINS, $options)) {
             throw new ErrorException(
                 'Parameter "' . self::ENV_OPTION_ADMINS . '" is required.'
             );
@@ -81,10 +81,10 @@ class AdminUsersTask extends AbstractTask
 
             // only return if command exited with error
             if ($process->isSuccessful() === false) {
-                return $process->isSuccessful();
+                return false;
             }
         }
 
-        return $process->isSuccessful();
+        return true;
     }
 }
