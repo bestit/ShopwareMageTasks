@@ -71,13 +71,12 @@ class AdminUsersTask extends AbstractTask
 
             // prepare command
             $cmd = sprintf(
-                'php %s/bin/console sw:admin:create %s',
-                $this->runtime->getEnvOption('from', '.'),
+                'php ./bin/console sw:admin:create %s',
                 $user . '--no-interaction'
             );
 
             /** @var Process $process */
-            $process = $this->runtime->runCommand($cmd);
+            $process = $this->runtime->runRemoteCommand($cmd, true);
 
             // only return if command exited with error
             if ($process->isSuccessful() === false) {
