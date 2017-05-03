@@ -46,6 +46,7 @@ magephp:
                 - deploy/plugins # Pushes plugins (>=5.2 system) to server(s).
                 - deploy/migrations # Pushes SQL migrations to server(s).
                 - deploy/themes # Pushes themes to server(s).
+                - shopware/theme-synchronize # Synchronize theme configuration.
                 - shopware/create-admins # Creates admin users from admins parameter in .yml file.
                 - shopware/update-plugins # Installs/Updates all (>=5.2 system) plugins on server(s).
                 - shopware/update-legacy-plugins # Installs/Updates all (legacy) plugins on server(s).
