@@ -62,7 +62,7 @@ class PhpCodeSnifferTask extends AbstractTask
      * @param $path
      * @return Process
      */
-    private function checkPath($path)
+    private function checkPath($path): Process
     {
         $switches = '--report=summary --standard=PSR2';
         $cmd = './vendor/bin/phpcs ' . $switches . $path;
