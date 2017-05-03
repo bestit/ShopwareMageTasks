@@ -3,7 +3,8 @@
     "description": "Common tasks to deploy a shopware project using MagePHP",
     "keywords": ["Shopware", "MagePHP", "Deployment"],
     "require": {
-        "andres-montanez/magallanes": "^3.0"
+        "andres-montanez/magallanes": "^3.0",
+        "squizlabs/php_codesniffer": "2.*"
     },
     "autoload": {
         "psr-4": {

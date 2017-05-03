@@ -16,6 +16,7 @@ magephp:
         - BestIt\Mage\Tasks\Deploy\SyncPluginsTask
         - BestIt\Mage\Tasks\Deploy\SyncScriptsTask
         - BestIt\Mage\Tasks\Deploy\SyncThemesTask
+        - BestIt\Mage\Tasks\Quality\PhpCodeSniffer
         - BestIt\Mage\Tasks\Misc\CopyTask
         - BestIt\Mage\Tasks\Release\PrepareTask
         - BestIt\Mage\Tasks\Shopware\ApplyMigrationsTask
@@ -33,6 +34,7 @@ magephp:
                 - production_server1
             pre-deploy:
                 - prepare/deploy # Replaces placeholder values in the config file.
+                - quality/php-codesniffer # Check given paths with php codesniffer
             on-deploy:
                 - deploy/release/prepare # Creates new release directory and copies all content of current into the created directory.
                 - fs/link: { from: '../../media', to: 'media' } # Creates a new symlink.
