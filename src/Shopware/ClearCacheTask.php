@@ -4,6 +4,12 @@ namespace BestIt\Mage\Tasks\Shopware;
 
 use Mage\Task\AbstractTask;
 
+/**
+ * Class ClearCacheTask
+ *
+ * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
+ * @package BestIt\Mage\Tasks\Shopware
+ */
 class ClearCacheTask extends AbstractTask
 {
     /**
@@ -33,12 +39,9 @@ class ClearCacheTask extends AbstractTask
      */
     public function execute(): bool
     {
-        $cmd = sprintf(
-            'bash %s/var/cache/clear_cache.sh',
-            $this->runtime->getEnvOption('from', '.')
-        );
+        $cmd = sprintf('bash ./var/cache/clear_cache.sh');
 
-        $process = $this->runtime->runCommand($cmd);
+        $process = $this->runtime->runRemoteCommand($cmd, true);
         return $process->isSuccessful();
     }
 }

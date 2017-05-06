@@ -6,6 +6,12 @@ use DirectoryIterator;
 use Mage\Task\AbstractTask;
 use Symfony\Component\Process\Process;
 
+/**
+ * Class AbstractUpdatePluginsTask
+ *
+ * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
+ * @package BestIt\Mage\Tasks\Shopware
+ */
 abstract class AbstractUpdatePluginsTask extends AbstractTask
 {
     /**

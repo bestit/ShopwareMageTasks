@@ -4,6 +4,12 @@ namespace BestIt\Mage\Tasks\Deploy;
 
 use Mage\Task\Exception\ErrorException;
 
+/**
+ * Class SyncConfigTask
+ *
+ * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
+ * @package BestIt\Mage\Tasks\Deploy
+ */
 class SyncConfigTask extends AbstractSyncTask
 {
     /**

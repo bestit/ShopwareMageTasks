@@ -5,6 +5,12 @@ namespace BestIt\Mage\Tasks\Deploy;
 use Mage\Task\BuiltIn\Deploy\RsyncTask;
 use Mage\Task\Exception\SkipException;
 
+/**
+ * Class AbstractSyncTask
+ *
+ * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
+ * @package BestIt\Mage\Tasks\Deploy
+ */
 abstract class AbstractSyncTask extends RsyncTask
 {
     /**
@@ -32,18 +38,18 @@ abstract class AbstractSyncTask extends RsyncTask
      */
     protected function sync(): bool
     {
-        $flags = $this->getRsyncFlags();
         $sshConfig = $this->runtime->getSSHConfig();
-        $user = $this->runtime->getEnvOption('user', $this->runtime->getCurrentUser());
-        $host = $this->runtime->getWorkingHost();
-        $targetDir = $this->getTarget();
-
-        $excludes = $this->getExcludes();
-        $from = $this->getSource();
 
         $command = sprintf(
             'rsync -e "ssh -p %d %s" %s %s %s %s@%s:%s',
-            $sshConfig['port'], $sshConfig['flags'], $flags, $excludes, $from, $user, $host, $targetDir
+            $sshConfig['port'],
+            $sshConfig['flags'],
+            $this->getRsyncFlags(),
+            $this->getExcludes(),
+            $this->getSource(),
+            $this->runtime->getEnvOption('user', $this->runtime->getCurrentUser()),
+            $this->runtime->getWorkingHost(),
+            $this->getTarget()
         );
 
         $process = $this->runtime->runLocalCommand($command, 600);

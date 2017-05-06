@@ -2,6 +2,12 @@
 
 namespace BestIt\Mage\Tasks\Deploy;
 
+/**
+ * Class SyncLibrariesTask
+ *
+ * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
+ * @package BestIt\Mage\Tasks\Deploy
+ */
 class SyncLibrariesTask extends AbstractSyncTask
 {
     /**

@@ -7,11 +7,12 @@ use Mage\Task\Exception\ErrorException;
 use Symfony\Component\Process\Process;
 
 /**
- * Class AdminUsersTask
+ * Class CreateAdminUsersTask
+ *
  * @author Marcel Thiesies <marcel.thiesies@bestit-online.de>
  * @package BestIt\Mage\Tasks\Shopware
  */
-class AdminUsersTask extends AbstractTask
+class CreateAdminUsersTask extends AbstractTask
 {
     /**
      * Yml file name of option to put all needed admin users into.
@@ -79,7 +80,7 @@ class AdminUsersTask extends AbstractTask
             $process = $this->runtime->runRemoteCommand($cmd, true);
 
             // only return if command exited with error
-            if ($process->isSuccessful() === false) {
+            if (!$process->isSuccessful()) {
                 return false;
             }
         }

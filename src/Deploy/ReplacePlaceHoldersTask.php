@@ -4,6 +4,12 @@ namespace BestIt\Mage\Tasks\Deploy;
 
 use Mage\Task\AbstractTask;
 
+/**
+ * Class ReplacePlaceHoldersTask
+ *
+ * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
+ * @package BestIt\Mage\Tasks\Deploy
+ */
 class ReplacePlaceHoldersTask extends AbstractTask
 {
     /**

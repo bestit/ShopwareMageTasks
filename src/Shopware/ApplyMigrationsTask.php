@@ -4,6 +4,12 @@ namespace BestIt\Mage\Tasks\Shopware;
 
 use Mage\Task\AbstractTask;
 
+/**
+ * Class ApplyMigrationsTask
+ *
+ * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
+ * @package BestIt\Mage\Tasks\Shopware
+ */
 class ApplyMigrationsTask extends AbstractTask
 {
     /**
@@ -35,7 +41,7 @@ class ApplyMigrationsTask extends AbstractTask
     {
         $cmd = 'php ./scripts/ApplyDeltas.php --tablesuffix="bestit" --migrationpath="./sql/" --shoppath="." --mode=update';
 
-        $process = $this->runtime->runCommand($cmd);
+        $process = $this->runtime->runRemoteCommand($cmd, true);
         return $process->isSuccessful();
     }
 }

@@ -5,6 +5,12 @@ namespace BestIt\Mage\Tasks\Misc;
 use Mage\Task\BuiltIn\Deploy\Tar\CopyTask as MageCopyTask;
 use Mage\Task\Exception\SkipException;
 
+/**
+ * Class CopyTask
+ *
+ * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
+ * @package BestIt\Mage\Tasks\Misc
+ */
 class CopyTask extends MageCopyTask
 {
     /**
