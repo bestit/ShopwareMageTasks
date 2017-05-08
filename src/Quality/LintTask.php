@@ -69,7 +69,7 @@ class LintTask extends AbstractTask
     }
 
     /**
-     * Get the vendor bin command to be run.
+     * Get the lint command to be run.
      *
      * @return string
      * @throws ErrorException
