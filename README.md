@@ -16,12 +16,13 @@ magephp:
         - BestIt\Mage\Tasks\Deploy\SyncPluginsTask
         - BestIt\Mage\Tasks\Deploy\SyncScriptsTask
         - BestIt\Mage\Tasks\Deploy\SyncThemesTask
-        - BestIt\Mage\Tasks\Quality\VendorBinTask
         - BestIt\Mage\Tasks\Misc\CopyTask
+        - BestIt\Mage\Tasks\Quality\VendorBinTask
         - BestIt\Mage\Tasks\Release\PrepareTask
         - BestIt\Mage\Tasks\Shopware\ApplyMigrationsTask
         - BestIt\Mage\Tasks\Shopware\ClearCacheTask
-        - BestIt\Mage\Tasks\Shopware\ThemeCacheWarmupTask
+        - BestIt\Mage\Tasks\Shopware\CommandTask
+        - BestIt\Mage\Tasks\Shopware\CreateAdminUsersTask
         - BestIt\Mage\Tasks\Shopware\UpdateLegacyPluginsTask
         - BestIt\Mage\Tasks\Shopware\UpdatePluginsTask
     environments:
@@ -46,14 +47,13 @@ magephp:
                 - deploy/plugins # Pushes plugins (>=5.2 system) to server(s).
                 - deploy/migrations # Pushes SQL migrations to server(s).
                 - deploy/themes # Pushes themes to server(s).
-                - shopware/theme-synchronize # Synchronize theme configuration.
                 - shopware/create-admins # Creates admin users from admins parameter in .yml file.
                 - shopware/update-plugins # Installs/Updates all (>=5.2 system) plugins on server(s).
                 - shopware/update-legacy-plugins # Installs/Updates all (legacy) plugins on server(s).
                 - shopware/migrate # Executes all SQL migrations on server(s).
             post-release:
                 - shopware/clear-cache # Clears Shopware cache on server(s).
-                - shopware/theme-cache-warmup # Warms up the shopware theme cache on server(s).
+                - shopware/command: { cmd: 'sw:theme:cache:generate' } # Warms up the shopware theme cache on server(s).
 ```
 
 ## Installation
@@ -93,4 +93,4 @@ vendor/bin/mage deploy <environment>
 
 ## License
 
-Source code is licensed under the MIT license.
+This software is open-sourced under the MIT license.
