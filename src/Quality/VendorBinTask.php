@@ -56,7 +56,7 @@ class VendorBinTask extends AbstractTask
             return false;
         }
 
-        $process = $this->runtime->runLocalCommand($cmd, true);
+        $process = $this->runtime->runLocalCommand($cmd);
 
         if (!$process->isSuccessful()) {
             return false;
