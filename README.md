@@ -36,7 +36,7 @@ magephp:
                 - production_server1
             pre-deploy:
                 - prepare/deploy # Replaces placeholder values in the config file.
-                - vendor/bin: { cmd: 'phpcs', flags: '../../custom --standard=ruleset.xml' } # execute, for example, phpcs with given flags.
+                - vendor/bin: { cmd: 'phpcs', dir: '../../custom', flags: '--standard=ruleset.xml' } # execute, for example, phpcs with given flags.
                 - quality/lint: { cmd: 'stylelint', dir: '../../themes', flags: '--syntax less' } # execute stylelint with less syntax.
             on-deploy:
                 - deploy/release/prepare # Creates new release directory and copies all content of current into the created directory.

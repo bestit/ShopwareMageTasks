@@ -46,10 +46,13 @@ class VendorBinTask extends AbstractTask
      */
     public function execute(): bool
     {
+        $rootDir = $this->runtime->getEnvOption('from', '.');
+
         try {
             $cmd = sprintf(
-                'php ./vendor/bin/%s %s',
+                'php ' . $rootDir . '/vendor/bin/%s %s %s',
                 $this->getCommand(),
+                $this->getDirectories(),
                 $this->getFlags()
             );
         } catch (ErrorException $exception) {
@@ -78,6 +81,21 @@ class VendorBinTask extends AbstractTask
         }
         return (string) $this->options['cmd'];
     }
+
+    /**
+     * Get directories to check for files.
+     *
+     * @return string
+     * @throws ErrorException
+     */
+    protected function getDirectories(): string
+    {
+        if (!isset($this->options['dir'])) {
+            throw new ErrorException('Second command argument missing');
+        }
+        return (string) $this->options['dir'];
+    }
+
     /**
      * Get the flags specified for the command.
      *
