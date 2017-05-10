@@ -40,12 +40,37 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
      */
     public function execute(): bool
     {
-        $namespaces = ['Backend', 'Core', 'Frontend'];
+        $sources = ['Community', 'Default', 'Local'];
 
+        if ($this->shouldSyncSourcesFolders()) {
+            foreach ($sources as $source) {
+                if (!$this->syncNamespacesForSource($source)) {
+                    return false;
+                }
+            }
+        } else {
+            return $this->syncNamespacesForSource(null);
+        }
+
+        return true;
+    }
+
+    /**
+     * @param string|null $source
+     * @return bool
+     */
+    protected function syncNamespacesForSource($source = null): bool
+    {
+        $namespaces = ['Backend', 'Core', 'Frontend'];
         $rootPath = $this->runtime->getEnvOption('from', '.');
+        $pathToPluginDir = "{$rootPath}/legacy_plugins/";
+
+        if ($source !== null) {
+            $pathToPluginDir .= $source;
+        }
 
         foreach ($namespaces as $namespace) {
-            $this->setPluginDir("{$rootPath}/legacy_plugins/{$namespace}/");
+            $this->setPluginDir("{$pathToPluginDir}/{$namespace}/");
 
             if (!parent::execute()) {
                 return false;
@@ -72,5 +97,13 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
     protected function getPluginDir(): string
     {
         return $this->pluginDir;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function shouldSyncSourcesFolders(): bool
+    {
+        return $this->options['sync_sources_folders'] ?? false;
     }
 }
