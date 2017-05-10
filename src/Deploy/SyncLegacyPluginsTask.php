@@ -53,7 +53,7 @@ class SyncLegacyPluginsTask extends AbstractSyncTask
      */
     protected function getTarget(): string
     {
-        $path = '/engine/Shopware/Plugins/';
+        $path = '/engine/Shopware/Plugins';
 
         if (!$this->shouldSyncSourcesFolders()) {
             $path .= 'Local/';
