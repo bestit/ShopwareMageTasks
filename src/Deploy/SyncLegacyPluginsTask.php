@@ -48,8 +48,25 @@ class SyncLegacyPluginsTask extends AbstractSyncTask
         return parent::getSource(). '/legacy_plugins/';
     }
 
+    /**
+     * @return string
+     */
     protected function getTarget(): string
     {
-        return parent::getTarget() . '/engine/Shopware/Plugins/Local/';
+        $path = '/engine/Shopware/Plugins/';
+
+        if (!$this->shouldSyncSourcesFolders()) {
+            $path .= 'Local/';
+        }
+
+        return parent::getTarget() . $path;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function shouldSyncSourcesFolders(): bool
+    {
+        return $this->options['sync_sources_folders'] ?? false;
     }
 }

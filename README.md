@@ -46,13 +46,13 @@ magephp:
                 - deploy/config # Pushes config file to server(s).
                 - deploy/scripts # Pushes scripts files to server(s).
                 - deploy/libraries # Pushes library (engine/Library) to server(s).
-                - deploy/legacy-plugins # Pushes legacy plugins to server(s).
+                - deploy/legacy-plugins: { sync_sources_folders: true } # Pushes legacy plugins to server(s). "Sources" are the Community/Local folders.
                 - deploy/plugins # Pushes plugins (>=5.2 system) to server(s).
                 - deploy/migrations # Pushes SQL migrations to server(s).
                 - deploy/themes # Pushes themes to server(s).
                 - shopware/create-admins # Creates admin users from admins parameter in .yml file.
                 - shopware/update-plugins # Installs/Updates all (>=5.2 system) plugins on server(s).
-                - shopware/update-legacy-plugins: { sync_sources_folders: true } # Installs/Updates all (legacy) plugins on server(s). "Sources" are the Community/Default/Local folders.
+                - shopware/update-legacy-plugins: { sync_sources_folders: true } # Installs/Updates all (legacy) plugins on server(s). "Sources" are the Community/Local folders.
                 - shopware/migrate # Executes all SQL migrations on server(s).
             post-release:
                 - shopware/clear-cache # Clears Shopware cache on server(s).
