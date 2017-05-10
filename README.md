@@ -7,6 +7,7 @@ This package includes common tasks to deploy a shopware project using [MagePHP](
 ```yaml
 magephp:
     admins: { 'el-bardan', 'emtii' }
+    php_executable: /usr/bin/php # Leave this empty if you want to use the globally installed php executable.
     custom_tasks:
         - BestIt\Mage\Tasks\Deploy\ReplacePlaceHoldersTask
         - BestIt\Mage\Tasks\Deploy\SyncConfigTask

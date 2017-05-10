@@ -2,8 +2,6 @@
 
 namespace BestIt\Mage\Tasks\Shopware;
 
-use Mage\Task\AbstractTask;
-
 /**
  * Class ClearCacheTask
  *
