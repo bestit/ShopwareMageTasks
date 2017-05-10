@@ -40,7 +40,7 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
      */
     public function execute(): bool
     {
-        $sources = ['Community', 'Default', 'Local'];
+        $sources = ['Community', 'Local'];
 
         if ($this->shouldSyncSourcesFolders()) {
             foreach ($sources as $source) {
