@@ -6,11 +6,11 @@ use Mage\Task\AbstractTask;
 use Mage\Task\Exception\ErrorException;
 
 /**
- * Class VendorBinTask
+ * Class LintTask
  * @author Marcel Thiesies <marcel.thiesies@bestit-online.de>
  * @package BestIt\Mage\Tasks\Quality
  */
-class VendorBinTask extends AbstractTask
+class LintTask extends AbstractTask
 {
     /**
      * Get the Name/Code of the Task
@@ -19,7 +19,7 @@ class VendorBinTask extends AbstractTask
      */
     public function getName(): string
     {
-        return 'vendor/bin';
+        return 'quality/lint';
     }
 
     /**
@@ -31,8 +31,9 @@ class VendorBinTask extends AbstractTask
     {
         try {
             return sprintf(
-                '[Quality] Run vendor bin command "%s" with flags: "%s"',
+                '[Quality] Run lint command "%s" in directory "%s" with flags: "%s"',
                 $this->getCommand(),
+                $this->getDirectories(),
                 $this->getFlags()
             );
         } catch (ErrorException $exception) {
@@ -42,15 +43,14 @@ class VendorBinTask extends AbstractTask
 
     /**
      * Executes the command.
+     *
      * @return bool
      */
     public function execute(): bool
     {
-        $rootDir = $this->runtime->getEnvOption('from', '.');
-
         try {
             $cmd = sprintf(
-                'php ' . $rootDir . '/vendor/bin/%s %s %s',
+                '%s %s %s',
                 $this->getCommand(),
                 $this->getDirectories(),
                 $this->getFlags()
@@ -69,7 +69,7 @@ class VendorBinTask extends AbstractTask
     }
 
     /**
-     * Get the vendor bin command to be run.
+     * Get the lint command to be run.
      *
      * @return string
      * @throws ErrorException
