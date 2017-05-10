@@ -2,7 +2,6 @@
 
 namespace BestIt\Mage\Tasks\Shopware;
 
-use Mage\Task\AbstractTask;
 use Mage\Task\Exception\ErrorException;
 
 /**
@@ -44,7 +43,12 @@ class CommandTask extends AbstractTask
      */
     public function execute(): bool
     {
-        $cmd = sprintf('php ./bin/console %s %s', $this->getCommand(), $this->getFlags());
+        $cmd = sprintf(
+            '%s ./bin/console %s %s',
+            $this->getPathToPhpExecutable(),
+            $this->getCommand(),
+            $this->getFlags()
+        );
         $process = $this->runtime->runRemoteCommand($cmd, true);
 
         return $process->isSuccessful();

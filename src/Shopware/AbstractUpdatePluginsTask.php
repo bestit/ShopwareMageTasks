@@ -3,7 +3,6 @@
 namespace BestIt\Mage\Tasks\Shopware;
 
 use DirectoryIterator;
-use Mage\Task\AbstractTask;
 use Symfony\Component\Process\Process;
 
 /**
@@ -45,8 +44,10 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
             }
 
             $cmd = sprintf(
-                'php ./bin/console sw:plugin:install %s --activate && php ./bin/console sw:plugin:update %s',
+                '%s ./bin/console sw:plugin:install %s --activate && %s ./bin/console sw:plugin:update %s',
+                $this->getPathToPhpExecutable(),
                 $file->getFilename(),
+                $this->getPathToPhpExecutable(),
                 $file->getFilename()
             );
 
@@ -70,7 +71,7 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
      */
     protected function refreshPluginList(): bool
     {
-        $cmd = sprintf('php ./bin/console sw:plugin:refresh');
+        $cmd = sprintf('%s ./bin/console sw:plugin:refresh', $this->getPathToPhpExecutable());
         $process = $this->runtime->runRemoteCommand($cmd, true);
 
         if (!$process->isSuccessful()) {

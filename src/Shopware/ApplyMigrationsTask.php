@@ -2,8 +2,6 @@
 
 namespace BestIt\Mage\Tasks\Shopware;
 
-use Mage\Task\AbstractTask;
-
 /**
  * Class ApplyMigrationsTask
  *
@@ -39,7 +37,10 @@ class ApplyMigrationsTask extends AbstractTask
      */
     public function execute(): bool
     {
-        $cmd = 'php ./scripts/ApplyDeltas.php --tablesuffix="bestit" --migrationpath="./sql/" --shoppath="." --mode=update';
+        $cmd = sprintf(
+            '%s ./scripts/ApplyDeltas.php --tablesuffix="bestit" --migrationpath="./sql/" --shoppath="." --mode=update',
+            $this->getPathToPhpExecutable()
+        );
 
         $process = $this->runtime->runRemoteCommand($cmd, true);
         return $process->isSuccessful();

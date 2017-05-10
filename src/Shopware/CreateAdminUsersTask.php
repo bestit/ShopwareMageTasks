@@ -2,7 +2,6 @@
 
 namespace BestIt\Mage\Tasks\Shopware;
 
-use Mage\Task\AbstractTask;
 use Mage\Task\Exception\ErrorException;
 use Symfony\Component\Process\Process;
 
@@ -72,7 +71,8 @@ class CreateAdminUsersTask extends AbstractTask
 
             // prepare command
             $cmd = sprintf(
-                'php ./bin/console sw:admin:create %s',
+                '%s ./bin/console sw:admin:create %s',
+                $this->getPathToPhpExecutable(),
                 $user . '--no-interaction'
             );
 
