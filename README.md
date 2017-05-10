@@ -11,6 +11,8 @@ magephp:
     custom_tasks:
         - BestIt\Mage\Tasks\Deploy\ReplacePlaceHoldersTask
         - BestIt\Mage\Tasks\Deploy\SyncConfigTask
+        - BestIt\Mage\Tasks\Deploy\SyncLegacyCommunityPluginsTask
+        - BestIt\Mage\Tasks\Deploy\SyncLegacyLocalPluginsTask
         - BestIt\Mage\Tasks\Deploy\SyncLegacyPluginsTask
         - BestIt\Mage\Tasks\Deploy\SyncLibrariesTask
         - BestIt\Mage\Tasks\Deploy\SyncMigrationsTask
@@ -46,7 +48,9 @@ magephp:
                 - deploy/config # Pushes config file to server(s).
                 - deploy/scripts # Pushes scripts files to server(s).
                 - deploy/libraries # Pushes library (engine/Library) to server(s).
-                - deploy/legacy-plugins: { sync_sources_folders: true } # Pushes legacy plugins to server(s). "Sources" are the Community/Local folders.
+                - deploy/legacy-plugins # Pushes legacy plugins to server(s). Use this for 5.2 systems. Basically all legacy plugins will be pushed to the local namespace.
+                - deploy/legacy-community-plugins # Pushes legacy plugins in the community namespace to server(s). Use this for <5.2 systems.
+                - deploy/legacy-local-plugins # Pushes legacy plugins in the local namespace to server(s). Use this for <5.2 systems.
                 - deploy/plugins # Pushes plugins (>=5.2 system) to server(s).
                 - deploy/migrations # Pushes SQL migrations to server(s).
                 - deploy/themes # Pushes themes to server(s).

@@ -3,12 +3,12 @@
 namespace BestIt\Mage\Tasks\Deploy;
 
 /**
- * Class SyncLegacyPluginsTask
+ * Class SyncLegacyLocalPluginsTask
  *
  * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
  * @package BestIt\Mage\Tasks\Deploy
  */
-class SyncLegacyPluginsTask extends AbstractSyncTask
+class SyncLegacyLocalPluginsTask extends AbstractSyncTask
 {
     /**
      * Get the Name/Code of the Task
@@ -17,7 +17,7 @@ class SyncLegacyPluginsTask extends AbstractSyncTask
      */
     public function getName(): string
     {
-        return 'deploy/legacy-plugins';
+        return 'deploy/legacy-local-plugins';
     }
 
     /**
@@ -27,7 +27,7 @@ class SyncLegacyPluginsTask extends AbstractSyncTask
      */
     public function getDescription(): string
     {
-        return '[Deploy] Copying legacy plugins.';
+        return '[Deploy] Copying legacy local plugins.';
     }
 
     /**
@@ -45,7 +45,7 @@ class SyncLegacyPluginsTask extends AbstractSyncTask
      */
     protected function getSource(): string
     {
-        return parent::getSource(). '/legacy_plugins/';
+        return parent::getSource(). '/legacy_plugins/Local/';
     }
 
     /**
@@ -54,5 +54,13 @@ class SyncLegacyPluginsTask extends AbstractSyncTask
     protected function getTarget(): string
     {
         return parent::getTarget() . '/engine/Shopware/Plugins/Local/';
+    }
+
+    /**
+     * @return bool
+     */
+    protected function shouldSyncSourcesFolders(): bool
+    {
+        return $this->options['sync_sources_folders'] ?? false;
     }
 }
