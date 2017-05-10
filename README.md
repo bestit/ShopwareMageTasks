@@ -17,6 +17,8 @@ magephp:
         - BestIt\Mage\Tasks\Deploy\SyncScriptsTask
         - BestIt\Mage\Tasks\Deploy\SyncThemesTask
         - BestIt\Mage\Tasks\Misc\CopyTask
+        - BestIt\Mage\Tasks\Quality\LintTask
+        - BestIt\Mage\Tasks\Quality\VendorBinTask
         - BestIt\Mage\Tasks\Release\PrepareTask
         - BestIt\Mage\Tasks\Shopware\ApplyMigrationsTask
         - BestIt\Mage\Tasks\Shopware\ClearCacheTask
@@ -34,6 +36,8 @@ magephp:
                 - production_server1
             pre-deploy:
                 - prepare/deploy # Replaces placeholder values in the config file.
+                - vendor/bin: { cmd: 'phpcs', dir: '../../custom', flags: '--standard=ruleset.xml' } # execute, for example, phpcs with given flags.
+                - quality/lint: { cmd: 'stylelint', dir: '../../themes', flags: '--syntax less' } # execute stylelint with less syntax.
             on-deploy:
                 - deploy/release/prepare # Creates new release directory and copies all content of current into the created directory.
                 - fs/link: { from: '../../media', to: 'media' } # Creates a new symlink.
