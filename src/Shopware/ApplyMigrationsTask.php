@@ -38,11 +38,29 @@ class ApplyMigrationsTask extends AbstractTask
     public function execute(): bool
     {
         $cmd = sprintf(
-            '%s ./scripts/ApplyDeltas.php --tablesuffix="bestit" --migrationpath="./sql/" --shoppath="." --mode=update',
-            $this->getPathToPhpExecutable()
+            '%s ./scripts/ApplyDeltas.php --tablesuffix="%s" --migrationpath="./%s/" --shoppath="." --mode=update',
+            $this->getPathToPhpExecutable(),
+            $this->getTableSuffix(),
+            $this->getMigrationDirName()
         );
 
         $process = $this->runtime->runRemoteCommand($cmd, true);
         return $process->isSuccessful();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getTableSuffix(): string
+    {
+        return $this->options['table_suffix'] ?? 'bestit';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getMigrationDirName(): string
+    {
+        return $this->options['migration_dir'] ?? 'sql';
     }
 }
