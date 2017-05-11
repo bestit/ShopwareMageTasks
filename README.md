@@ -57,7 +57,7 @@ magephp:
                 - shopware/create-admins # Creates admin users from admins parameter in .yml file.
                 - shopware/update-plugins # Installs/Updates all (>=5.2 system) plugins on server(s).
                 - shopware/update-legacy-plugins: { sync_sources_folders: true } # Installs/Updates all (legacy) plugins on server(s). "Sources" are the Community/Local folders.
-                - shopware/migrate # Executes all SQL migrations on server(s).
+                - shopware/migrate: { table_suffix: 'bestit', migration_dir: 'sql' } # Executes all SQL migrations on server(s). Both parameters are optional.
             post-release:
                 - shopware/clear-cache # Clears Shopware cache on server(s).
                 - shopware/command: { cmd: 'sw:theme:cache:generate' } # Warms up the shopware theme cache on server(s).
