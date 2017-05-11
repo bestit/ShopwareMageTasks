@@ -23,9 +23,7 @@ class PrepareTask extends MagePrepareTask
         $releaseId = $this->runtime->getReleaseId();
 
         $cmdMakeDir = sprintf(
-            'mkdir -p %s/releases/%s && cp -rp %s/current/. %s/releases/%s',
-            $hostPath,
-            $releaseId,
+            'cp -rp %s/current/ %s/releases/%s',
             $hostPath,
             $hostPath,
             $releaseId
