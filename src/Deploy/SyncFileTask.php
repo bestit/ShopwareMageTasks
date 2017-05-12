@@ -74,7 +74,7 @@ class SyncFileTask extends AbstractTask
      */
     protected function getRsyncFlags(): string
     {
-        return $this->options['rsync_flags'] ?? 'rvz';
+        return $this->options['rsync_flags'] ?? '-rvz';
     }
 
     /**

@@ -55,7 +55,7 @@ magephp:
                 - deploy/plugins # Pushes plugins (>=5.2 system) to server(s).
                 - deploy/migrations: { src: 'sql' } # Pushes SQL migrations to server(s). src is optional "sql" is default.
                 - deploy/themes # Pushes themes to server(s).
-                - deploy/file: { src: 'engine/Shopware/Core/sBasket.php', target: 'engine/Shopware/Core/', rsync_flag: 'rvz' } # Pushes one file to a directory. rsync_flags is optional, default is 'rvz'.
+                - deploy/file: { src: 'engine/Shopware/Core/sBasket.php', target: 'engine/Shopware/Core/', rsync_flag: '-rvz' } # Pushes one file to a directory. rsync_flags is optional, default is 'rvz'.
                 - shopware/create-admins # Creates admin users from admins parameter in .yml file.
                 - shopware/update-plugins # Installs/Updates all (>=5.2 system) plugins on server(s).
                 - shopware/update-legacy-plugins: { sync_sources_folders: true } # Installs/Updates all (legacy) plugins on server(s). "Sources" are the Community/Local folders.
