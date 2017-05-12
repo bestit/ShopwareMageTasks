@@ -24,7 +24,7 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
     }
 
     /**
-     * Install/Update all plugins in the given directory.
+     * Update all plugins in the given directory.
      *
      * @param string $directory
      * @return bool
@@ -44,16 +44,14 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
             }
 
             $cmd = sprintf(
-                '%s ./bin/console sw:plugin:install %s --activate && %s ./bin/console sw:plugin:update %s',
-                $this->getPathToPhpExecutable(),
-                $file->getFilename(),
+                '%s ./bin/console sw:plugin:update %s',
                 $this->getPathToPhpExecutable(),
                 $file->getFilename()
             );
 
             $process = $this->runtime->runRemoteCommand($cmd, true, 240);
 
-            if (!$this->isSuccessful($process)) {
+            if (!$process->isSuccessful()) {
                 echo $process->getOutput();
                 echo $process->getErrorOutput();
 
@@ -75,27 +73,6 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
         $process = $this->runtime->runRemoteCommand($cmd, true);
 
         if (!$process->isSuccessful()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Check if the process was successful.
-     *
-     * @param Process $process
-     * @return bool
-     */
-    protected function isSuccessful(Process $process): bool
-    {
-        /**
-         * We need to check if the output contains 'is already installed' because shopware
-         * returns a non-zero exit code if the plugin is already installed so our process
-         * would be marked as failed even though it did not actually fail.
-         */
-        if (!$process->isSuccessful() && strpos($process->getOutput(), 'is already installed.') === false) {
-            echo $process->getOutput();
             return false;
         }
 

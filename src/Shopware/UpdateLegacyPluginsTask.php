@@ -30,7 +30,7 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
      */
     public function getDescription(): string
     {
-        return '[Shopware] Install/Update legacy plugins.';
+        return '[Shopware] Update legacy plugins.';
     }
 
     /**
