@@ -64,6 +64,8 @@ class ReplacePlaceHoldersTask extends AbstractTask
             }
         }
 
+        $parameters[] = 'HTPASSWD';
+
         /* Replace dev_environment.sh placeholder values. */
         foreach ($parameters as $parameter) {
             $cmd = sprintf(
