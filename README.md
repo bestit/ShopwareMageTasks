@@ -57,8 +57,8 @@ magephp:
                 - deploy/themes # Pushes themes to server(s).
                 - deploy/file: { src: 'engine/Shopware/Core/sBasket.php', target: 'engine/Shopware/Core/', rsync_flag: '-rvz' } # Pushes one file to a directory. rsync_flags is optional, default is 'rvz'.
                 - shopware/create-admins # Creates admin users from admins parameter in .yml file.
-                - shopware/update-plugins # Installs/Updates all (>=5.2 system) plugins on server(s).
-                - shopware/update-legacy-plugins: { sync_sources_folders: true } # Installs/Updates all (legacy) plugins on server(s). "Sources" are the Community/Local folders.
+                - shopware/update-plugins # Updates all (>=5.2 system) plugins on server(s).
+                - shopware/update-legacy-plugins: { sync_sources_folders: true } # Updates all (legacy) plugins on server(s). "Sources" are the Community/Local folders.
                 - shopware/migrate: { table_suffix: 'bestit', migration_dir: 'sql' } # Executes all SQL migrations on server(s). Both parameters are optional.
                 - shopware/clear-cache # Clears Shopware cache on server(s).
                 - shopware/command: { cmd: 'sw:theme:cache:generate' } # Warms up the shopware theme cache on server(s).

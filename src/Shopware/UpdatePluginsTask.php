@@ -27,7 +27,7 @@ class UpdatePluginsTask extends AbstractUpdatePluginsTask
      */
     public function getDescription(): string
     {
-        return '[Shopware] Install/Update plugins.';
+        return '[Shopware] Update plugins.';
     }
 
     /**
