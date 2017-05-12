@@ -44,7 +44,7 @@ class ReplacePlaceHoldersTask extends AbstractTask
 
         $pathToRoot = $this->runtime->getEnvOption('from', '.');
         $pathToConfig = "{$pathToRoot}/configs/config_{$environment}.php";
-        $pathToDevScript = "{$pathToRoot}/script/remote/dev_environment.sh";
+        $pathToDevScript = "{$pathToRoot}/scripts/remote/dev_environment.sh";
 
         $parameters = ['DB_HOST', 'DB_NAME', 'DB_PASS', 'DB_PORT', 'DB_USER'];
 
