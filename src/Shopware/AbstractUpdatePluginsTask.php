@@ -51,7 +51,7 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
 
             $process = $this->runtime->runRemoteCommand($cmd, true, 240);
 
-            if (!$process->isSuccessful()) {
+            if (!$this->isSuccessful($process)) {
                 echo $process->getOutput();
                 echo $process->getErrorOutput();
 
@@ -73,6 +73,26 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
         $process = $this->runtime->runRemoteCommand($cmd, true);
 
         if (!$process->isSuccessful()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Check if the process was successful.
+     *
+     * @param Process $process
+     * @return bool
+     */
+    protected function isSuccessful(Process $process): bool
+    {
+        /**
+         * We need to check if the output contains 'is up to date' because shopware
+         * returns a non-zero exit code if the plugin is already installed so our process
+         * would be marked as failed even though it did not actually fail.
+         */
+        if (!$process->isSuccessful() && strpos($process->getOutput(), 'is up to date') === false) {
             return false;
         }
 
