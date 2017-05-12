@@ -45,6 +45,8 @@ class SyncMigrationsTask extends AbstractSyncTask
      */
     protected function getSource(): string
     {
-        return parent::getSource(). '/sql';
+        $source = $this->options['src'] ?? 'sql';
+
+        return parent::getSource(). $source;
     }
 }
