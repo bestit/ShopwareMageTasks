@@ -15,7 +15,7 @@ class SyncPluginsTask extends AbstractSyncTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'deploy/plugins';
     }
@@ -25,7 +25,7 @@ class SyncPluginsTask extends AbstractSyncTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Deploy] Copying plugins.';
     }
@@ -35,7 +35,7 @@ class SyncPluginsTask extends AbstractSyncTask
      *
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         return $this->sync();
     }
@@ -43,7 +43,7 @@ class SyncPluginsTask extends AbstractSyncTask
     /**
      * @return string
      */
-    protected function getSource(): string
+    protected function getSource()
     {
         return parent::getSource(). '/plugins';
     }
@@ -51,7 +51,7 @@ class SyncPluginsTask extends AbstractSyncTask
     /**
      * @return string
      */
-    protected function getTarget(): string
+    protected function getTarget()
     {
         return parent::getTarget() . '/custom/';
     }

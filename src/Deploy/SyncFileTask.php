@@ -18,7 +18,7 @@ class SyncFileTask extends AbstractTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'deploy/file';
     }
@@ -28,7 +28,7 @@ class SyncFileTask extends AbstractTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         try {
             return sprintf('[Deploy] Syncing file "%s" to directory "%s"', $this->getSource(), $this->getTarget());
@@ -42,7 +42,7 @@ class SyncFileTask extends AbstractTask
      *
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         $sshConfig = $this->runtime->getSSHConfig();
 
@@ -72,9 +72,9 @@ class SyncFileTask extends AbstractTask
     /**
      * @return string
      */
-    protected function getRsyncFlags(): string
+    protected function getRsyncFlags()
     {
-        return $this->options['rsync_flags'] ?? '-rvz';
+        return isset($this->options['rsync_flags']) ? $this->options['rsync_flags'] : '-rvz';
     }
 
     /**
@@ -83,7 +83,7 @@ class SyncFileTask extends AbstractTask
      * @return string
      * @throws ErrorException
      */
-    protected function getSource(): string
+    protected function getSource()
     {
         if (!isset($this->options['src'])) {
             throw new ErrorException('No source file specified.');
@@ -100,7 +100,7 @@ class SyncFileTask extends AbstractTask
      * @return string
      * @throws ErrorException
      */
-    protected function getTarget(): string
+    protected function getTarget()
     {
         if (!isset($this->options['target'])) {
             throw new ErrorException('No target directory specified.');
@@ -119,7 +119,7 @@ class SyncFileTask extends AbstractTask
     /**
      * @return string
      */
-    protected function getHostPath(): string
+    protected function getHostPath()
     {
         return $this->runtime->getEnvOption('host_path');
     }

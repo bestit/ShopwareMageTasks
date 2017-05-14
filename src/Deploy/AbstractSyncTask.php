@@ -16,7 +16,7 @@ abstract class AbstractSyncTask extends RsyncTask
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Overwrite] Skipping default sync step...';
     }
@@ -36,7 +36,7 @@ abstract class AbstractSyncTask extends RsyncTask
      *
      * @return bool
      */
-    protected function sync(): bool
+    protected function sync()
     {
         $sshConfig = $this->runtime->getSSHConfig();
 
@@ -67,7 +67,7 @@ abstract class AbstractSyncTask extends RsyncTask
     /**
      * @return array
      */
-    protected function getSshConfig(): array
+    protected function getSshConfig()
     {
         return $this->runtime->getSSHConfig();
     }
@@ -75,7 +75,7 @@ abstract class AbstractSyncTask extends RsyncTask
     /**
      * @return string
      */
-    protected function getCurrentUser(): string
+    protected function getCurrentUser()
     {
         return $this->runtime->getEnvOption('user', $this->runtime->getCurrentUser());
     }
@@ -91,7 +91,7 @@ abstract class AbstractSyncTask extends RsyncTask
     /**
      * @return string
      */
-    protected function getHostPath(): string
+    protected function getHostPath()
     {
         return $this->runtime->getEnvOption('host_path');
     }
@@ -99,7 +99,7 @@ abstract class AbstractSyncTask extends RsyncTask
     /**
      * @return string
      */
-    protected function getTarget(): string
+    protected function getTarget()
     {
         $targetDir = rtrim($this->getHostPath(), '/');
         $currentReleaseId = $this->runtime->getReleaseId();
@@ -114,7 +114,7 @@ abstract class AbstractSyncTask extends RsyncTask
     /**
      * @return string
      */
-    protected function getSource(): string
+    protected function getSource()
     {
         return $this->runtime->getEnvOption('from', './');
     }
@@ -122,7 +122,7 @@ abstract class AbstractSyncTask extends RsyncTask
     /**
      * @return string
      */
-    protected function getRsyncFlags(): string
+    protected function getRsyncFlags()
     {
         return $this->runtime->getEnvOption('rsync', '-avz');
     }

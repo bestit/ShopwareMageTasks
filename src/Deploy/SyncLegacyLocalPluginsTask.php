@@ -15,7 +15,7 @@ class SyncLegacyLocalPluginsTask extends AbstractSyncTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'deploy/legacy-local-plugins';
     }
@@ -25,7 +25,7 @@ class SyncLegacyLocalPluginsTask extends AbstractSyncTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Deploy] Copying legacy local plugins.';
     }
@@ -35,7 +35,7 @@ class SyncLegacyLocalPluginsTask extends AbstractSyncTask
      *
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         return $this->sync();
     }
@@ -43,7 +43,7 @@ class SyncLegacyLocalPluginsTask extends AbstractSyncTask
     /**
      * @return string
      */
-    protected function getSource(): string
+    protected function getSource()
     {
         return parent::getSource(). '/legacy_plugins/Local/';
     }
@@ -51,7 +51,7 @@ class SyncLegacyLocalPluginsTask extends AbstractSyncTask
     /**
      * @return string
      */
-    protected function getTarget(): string
+    protected function getTarget()
     {
         return parent::getTarget() . '/engine/Shopware/Plugins/Local/';
     }
@@ -59,8 +59,8 @@ class SyncLegacyLocalPluginsTask extends AbstractSyncTask
     /**
      * @return bool
      */
-    protected function shouldSyncSourcesFolders(): bool
+    protected function shouldSyncSourcesFolders()
     {
-        return $this->options['sync_sources_folders'] ?? false;
+        return isset($this->options['sync_sources_folders']) ? $this->options['sync_sources_folders'] : false;
     }
 }

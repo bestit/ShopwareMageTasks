@@ -15,7 +15,7 @@ class SyncMigrationsTask extends AbstractSyncTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'deploy/migrations';
     }
@@ -25,7 +25,7 @@ class SyncMigrationsTask extends AbstractSyncTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Deploy] Copying migrations.';
     }
@@ -35,7 +35,7 @@ class SyncMigrationsTask extends AbstractSyncTask
      *
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         return $this->sync();
     }
@@ -43,9 +43,9 @@ class SyncMigrationsTask extends AbstractSyncTask
     /**
      * @return string
      */
-    protected function getSource(): string
+    protected function getSource()
     {
-        $source = $this->options['src'] ?? 'sql';
+        $source = isset($this->options['src']) ? $this->options['src'] : 'sql';
 
         return parent::getSource(). $source;
     }

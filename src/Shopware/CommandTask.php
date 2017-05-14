@@ -17,7 +17,7 @@ class CommandTask extends AbstractTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'shopware/command';
     }
@@ -27,7 +27,7 @@ class CommandTask extends AbstractTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         try {
             return sprintf('[Shopware] Execute command "%s" with flags: "%s"', $this->getCommand(), $this->getFlags());
@@ -41,7 +41,7 @@ class CommandTask extends AbstractTask
      *
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         $cmd = sprintf(
             '%s ./bin/console %s %s',
@@ -60,7 +60,7 @@ class CommandTask extends AbstractTask
      * @return string
      * @throws ErrorException
      */
-    protected function getCommand(): string
+    protected function getCommand()
     {
         if (!isset($this->options['cmd'])) {
             throw new ErrorException('Command argument missing');
@@ -74,8 +74,8 @@ class CommandTask extends AbstractTask
      *
      * @return string
      */
-    protected function getFlags(): string
+    protected function getFlags()
     {
-        return $this->options['flags'] ?? '';
+        return isset($this->options['flags']) ? $this->options['flags'] : '';
     }
 }

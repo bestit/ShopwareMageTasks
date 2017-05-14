@@ -17,7 +17,7 @@ class ReplacePlaceHoldersTask extends AbstractTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'prepare/deploy';
     }
@@ -27,7 +27,7 @@ class ReplacePlaceHoldersTask extends AbstractTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Prepare] Replacing placeholders with actual values.';
     }
@@ -37,7 +37,7 @@ class ReplacePlaceHoldersTask extends AbstractTask
      *
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         $environment = $this->runtime->getEnvironment();
         $upperEnvironment = strtoupper($environment);
