@@ -18,7 +18,7 @@ class CopyTask extends MageCopyTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Misc] Skip default copy tar command.';
     }

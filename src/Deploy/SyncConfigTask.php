@@ -17,7 +17,7 @@ class SyncConfigTask extends AbstractSyncTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'deploy/config';
     }
@@ -27,7 +27,7 @@ class SyncConfigTask extends AbstractSyncTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Deploy] Copying config.php.';
     }
@@ -38,7 +38,7 @@ class SyncConfigTask extends AbstractSyncTask
      * @return bool
      * @throws ErrorException
      */
-    public function execute(): bool
+    public function execute()
     {
         return $this->sync();
     }
@@ -46,12 +46,12 @@ class SyncConfigTask extends AbstractSyncTask
     /**
      * @return string
      */
-    public function getTarget(): string
+    public function getTarget()
     {
         return parent::getTarget() . '/config.php';
     }
 
-    public function getSource(): string
+    public function getSource()
     {
         return parent::getSource() . "/configs/config_{$this->runtime->getEnvironment()}.php";
     }

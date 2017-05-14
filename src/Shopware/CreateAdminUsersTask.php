@@ -23,7 +23,7 @@ class CreateAdminUsersTask extends AbstractTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'shopware/create-admins';
     }
@@ -33,7 +33,7 @@ class CreateAdminUsersTask extends AbstractTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Shopware] Create admin users in the backend.';
     }
@@ -44,7 +44,7 @@ class CreateAdminUsersTask extends AbstractTask
      * @return bool
      * @throws \Mage\Task\Exception\ErrorException
      */
-    public function execute(): bool
+    public function execute()
     {
         // get options from .yml
         $options = (array) $this->runtime->getEnvOption(self::ENV_OPTION_ADMINS, []);

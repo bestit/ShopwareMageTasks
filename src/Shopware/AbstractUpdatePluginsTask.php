@@ -18,7 +18,7 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
      *
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         return $this->updateAllInDir($this->getPluginDir());
     }
@@ -29,7 +29,7 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
      * @param string $directory
      * @return bool
      */
-    protected function updateAllInDir(string $directory): bool
+    protected function updateAllInDir($directory)
     {
         if (!$this->refreshPluginList()) {
             echo 'Could not refresh plugin list';
@@ -67,7 +67,7 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
      *
      * @return bool
      */
-    protected function refreshPluginList(): bool
+    protected function refreshPluginList()
     {
         $cmd = sprintf('%s ./bin/console sw:plugin:refresh', $this->getPathToPhpExecutable());
         $process = $this->runtime->runRemoteCommand($cmd, true);
@@ -85,7 +85,7 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
      * @param Process $process
      * @return bool
      */
-    protected function isSuccessful(Process $process): bool
+    protected function isSuccessful(Process $process)
     {
         /**
          * We need to check if the output contains 'is up to date' because shopware
@@ -104,5 +104,5 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
      *
      * @return string
      */
-    abstract protected function getPluginDir(): string;
+    abstract protected function getPluginDir();
 }

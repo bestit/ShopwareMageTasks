@@ -15,7 +15,7 @@ class SyncScriptsTask extends AbstractSyncTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'deploy/scripts';
     }
@@ -25,7 +25,7 @@ class SyncScriptsTask extends AbstractSyncTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Deploy] Copying script files.';
     }
@@ -35,7 +35,7 @@ class SyncScriptsTask extends AbstractSyncTask
      *
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         return $this->sync();
     }
@@ -43,7 +43,7 @@ class SyncScriptsTask extends AbstractSyncTask
     /**
      * @return string
      */
-    protected function getSource(): string
+    protected function getSource()
     {
         return parent::getSource() . '/scripts/remote/';
     }
@@ -51,7 +51,7 @@ class SyncScriptsTask extends AbstractSyncTask
     /**
      * @return string
      */
-    protected function getTarget(): string
+    protected function getTarget()
     {
         return parent::getTarget() . '/scripts';
     }

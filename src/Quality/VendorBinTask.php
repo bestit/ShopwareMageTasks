@@ -17,7 +17,7 @@ class VendorBinTask extends AbstractTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'vendor/bin';
     }
@@ -27,7 +27,7 @@ class VendorBinTask extends AbstractTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         try {
             return sprintf(
@@ -44,7 +44,7 @@ class VendorBinTask extends AbstractTask
      * Executes the command.
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         $rootDir = $this->runtime->getEnvOption('from', '.');
 
@@ -74,7 +74,7 @@ class VendorBinTask extends AbstractTask
      * @return string
      * @throws ErrorException
      */
-    protected function getCommand(): string
+    protected function getCommand()
     {
         if (!isset($this->options['cmd'])) {
             throw new ErrorException('Command argument missing');
@@ -88,7 +88,7 @@ class VendorBinTask extends AbstractTask
      * @return string
      * @throws ErrorException
      */
-    protected function getDirectories(): string
+    protected function getDirectories()
     {
         if (!isset($this->options['dir'])) {
             throw new ErrorException('Second command argument missing');
@@ -101,8 +101,8 @@ class VendorBinTask extends AbstractTask
      *
      * @return string
      */
-    protected function getFlags(): string
+    protected function getFlags()
     {
-        return $this->options['flags'] ?? '';
+        return isset($this->options['flags']) ? $this->options['flags'] : '';
     }
 }

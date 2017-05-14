@@ -17,7 +17,7 @@ class PrepareTask extends MagePrepareTask
      *
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         $hostPath = rtrim($this->runtime->getEnvOption('host_path'), '/');
         $releaseId = $this->runtime->getReleaseId();

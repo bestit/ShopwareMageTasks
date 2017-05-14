@@ -15,7 +15,7 @@ class ApplyMigrationsTask extends AbstractTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'shopware/migrate';
     }
@@ -25,7 +25,7 @@ class ApplyMigrationsTask extends AbstractTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Shopware] Apply migrations.';
     }
@@ -35,7 +35,7 @@ class ApplyMigrationsTask extends AbstractTask
      *
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         $cmd = sprintf(
             '%s ./scripts/ApplyDeltas.php --tablesuffix="%s" --migrationpath="./%s/" --shoppath="." --mode=update',
@@ -51,16 +51,16 @@ class ApplyMigrationsTask extends AbstractTask
     /**
      * @return string
      */
-    protected function getTableSuffix(): string
+    protected function getTableSuffix()
     {
-        return $this->options['table_suffix'] ?? 'bestit';
+        return isset($this->options['table_suffix']) ? $this->options['table_suffix'] : 'bestit';
     }
 
     /**
      * @return string
      */
-    protected function getMigrationDirName(): string
+    protected function getMigrationDirName()
     {
-        return $this->options['migration_dir'] ?? 'sql';
+        return isset($this->options['migration_dir']) ? $this->options['migration_dir'] : 'sql';
     }
 }

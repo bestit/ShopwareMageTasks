@@ -15,7 +15,7 @@ class ClearCacheTask extends AbstractTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'shopware/clear-cache';
     }
@@ -25,7 +25,7 @@ class ClearCacheTask extends AbstractTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Shopware] Clear the shopware cache.';
     }
@@ -35,7 +35,7 @@ class ClearCacheTask extends AbstractTask
      *
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         $cmd = sprintf('bash ./var/cache/clear_cache.sh');
 

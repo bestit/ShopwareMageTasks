@@ -18,7 +18,7 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'shopware/update-legacy-plugins';
     }
@@ -28,7 +28,7 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Shopware] Update legacy plugins.';
     }
@@ -38,7 +38,7 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
      *
      * @return bool
      */
-    public function execute(): bool
+    public function execute()
     {
         $sources = ['Community', 'Local'];
 
@@ -59,7 +59,7 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
      * @param string|null $source
      * @return bool
      */
-    protected function syncNamespacesForSource($source = null): bool
+    protected function syncNamespacesForSource($source = null)
     {
         $namespaces = ['Backend', 'Core', 'Frontend'];
         $rootPath = $this->runtime->getEnvOption('from', '.');
@@ -84,7 +84,7 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
      * @param string $pluginDir
      * @return UpdateLegacyPluginsTask
      */
-    protected function setPluginDir(string $pluginDir): UpdateLegacyPluginsTask
+    protected function setPluginDir($pluginDir)
     {
         $this->pluginDir = $pluginDir;
 
@@ -94,7 +94,7 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
     /**
      * @return string
      */
-    protected function getPluginDir(): string
+    protected function getPluginDir()
     {
         return $this->pluginDir;
     }
@@ -102,8 +102,8 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
     /**
      * @return bool
      */
-    protected function shouldSyncSourcesFolders(): bool
+    protected function shouldSyncSourcesFolders()
     {
-        return $this->options['sync_sources_folders'] ?? false;
+        return isset($this->options['sync_sources_folders']) ? $this->options['sync_sources_folders'] : false;
     }
 }

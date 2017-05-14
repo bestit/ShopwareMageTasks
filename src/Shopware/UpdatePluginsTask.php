@@ -15,7 +15,7 @@ class UpdatePluginsTask extends AbstractUpdatePluginsTask
      *
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return 'shopware/update-plugins';
     }
@@ -25,7 +25,7 @@ class UpdatePluginsTask extends AbstractUpdatePluginsTask
      *
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return '[Shopware] Update plugins.';
     }
@@ -33,7 +33,7 @@ class UpdatePluginsTask extends AbstractUpdatePluginsTask
     /**
      * @return string
      */
-    protected function getPluginDir(): string
+    protected function getPluginDir()
     {
         return $this->runtime->getEnvOption('from', '.') . '/plugins/';
     }
