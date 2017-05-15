@@ -29,7 +29,7 @@ class PrepareTask extends MagePrepareTask
             $releaseId
         );
 
-        $process = $this->runtime->runRemoteCommand($cmdMakeDir, false);
+        $process = $this->runtime->runRemoteCommand($cmdMakeDir, false, 300);
         return $process->isSuccessful();
     }
 }
