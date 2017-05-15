@@ -18,8 +18,8 @@ abstract class AbstractTask extends MageAbstractTask
     protected function getPathToPhpExecutable()
     {
         return
-            ($this->runtime->getEnvOption('php_executable') !== null)
-            ? $this->runtime->getEnvOption('php_executable')
+            ($this->runtime->getConfigOption('php_executable') !== null)
+            ? $this->runtime->getConfigOption('php_executable')
             : 'php'
         ;
     }
