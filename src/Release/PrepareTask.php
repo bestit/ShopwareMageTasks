@@ -3,6 +3,7 @@
 namespace BestIt\Mage\Tasks\Release;
 
 use Mage\Task\BuiltIn\Deploy\Release\PrepareTask as MagePrepareTask;
+use Mage\Task\Exception\SkipException;
 
 /**
  * Class PrepareTask
@@ -16,20 +17,10 @@ class PrepareTask extends MagePrepareTask
      * Executes the task.
      *
      * @return bool
+     * @throws SkipException
      */
     public function execute()
     {
-        $hostPath = rtrim($this->runtime->getEnvOption('host_path'), '/');
-        $releaseId = $this->runtime->getReleaseId();
-
-        $cmdMakeDir = sprintf(
-            'cp -rp %s/current/ %s/releases/%s',
-            $hostPath,
-            $hostPath,
-            $releaseId
-        );
-
-        $process = $this->runtime->runRemoteCommand($cmdMakeDir, false, 300);
-        return $process->isSuccessful();
+        throw new SkipException('Skip default prepare task.');
     }
 }
