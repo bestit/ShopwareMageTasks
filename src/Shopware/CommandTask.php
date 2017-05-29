@@ -3,6 +3,8 @@
 namespace BestIt\Mage\Tasks\Shopware;
 
 use Mage\Task\Exception\ErrorException;
+use Mage\Task\Exception\SkipException;
+use Mage\Task\ExecuteOnRollbackInterface;
 
 /**
  * Class CommandTask
@@ -10,7 +12,7 @@ use Mage\Task\Exception\ErrorException;
  * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
  * @package BestIt\Mage\Tasks\Shopware
  */
-class CommandTask extends AbstractTask
+class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
 {
     /**
      * Get the Name/Code of the Task
@@ -30,7 +32,7 @@ class CommandTask extends AbstractTask
     public function getDescription()
     {
         try {
-            return sprintf('[Shopware] Execute command "%s" with flags: "%s"', $this->getCommand(), $this->getFlags());
+            return sprintf('[Shopware] Execute command "%s" with flags: "%s"', $this->getCommand(), $this->options['flags']);
         } catch (ErrorException $exception) {
             return '[Shopware] Execute command [missing parameters]';
         }
@@ -40,14 +42,19 @@ class CommandTask extends AbstractTask
      * Executes the Command
      *
      * @return bool
+     * @throws SkipException
      */
     public function execute()
     {
+        if (!$this->options['execOnRollback'] && $this->runtime->inRollback()) {
+            throw new SkipException("Task skipped because 'execOnRollback' is set to 'false'.");
+        }
+
         $cmd = sprintf(
             '%s ./bin/console %s %s',
             $this->getPathToPhpExecutable(),
             $this->getCommand(),
-            $this->getFlags()
+            $this->options['flags']
         );
         $process = $this->runtime->runRemoteCommand($cmd, true);
 
@@ -70,12 +77,13 @@ class CommandTask extends AbstractTask
     }
 
     /**
-     * Get the flags specified for the command.
-     *
-     * @return string
+     * @return array
      */
-    protected function getFlags()
+    public function getDefaults()
     {
-        return isset($this->options['flags']) ? $this->options['flags'] : '';
+        return [
+            'flags' => '',
+            'execOnRollback' => false
+        ];
     }
 }
