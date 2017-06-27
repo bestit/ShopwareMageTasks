@@ -41,10 +41,12 @@ magephp:
                 - deploy: { from: 'legacy_plugins/Community/', to: 'engine/Shopware/Plugins/Community/', strict: false }
                 - deploy: { from: 'legacy_plugins/Local/', to: 'engine/Shopware/Plugins/Local/', strict: true }
                 - deploy: { from: 'plugins/', to: 'custom/plugins/', strict: true }
+                - deploy: { from: 'licenses/', to: 'licenses/', strict: true } # sync files in licenses folder from local to server
                 - exec: { cmd: './var/cache/clear_cache.sh', desc: 'Clear shopware cache.' }
                 - shopware/update-plugins # Updates all (>=5.2 system) plugins on server(s).
                 - shopware/update-legacy-plugins: { sync_sources_folders: true } # Updates all (legacy) plugins on server(s). "Sources" are the Community/Local folders.
                 - shopware/migrate: { table_suffix: 'bestit', migration_dir: 'sql' } # Executes all SQL migrations on server(s). Both parameters are optional.
+                - shopware/command { cmd: 'sw:swaglicense:import ./licenses/licenses_prod.ini' } # Import licenses of license ini file into database, SwagLicense is needed for command
                 - shopware/command: { cmd: 'sw:theme:cache:generate' } # Warms up the shopware theme cache on server(s).
 ```
 
