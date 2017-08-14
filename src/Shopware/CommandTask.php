@@ -56,7 +56,7 @@ class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
             $this->getCommand(),
             $this->options['flags']
         );
-        $process = $this->runtime->runRemoteCommand($cmd, true);
+        $process = $this->runtime->runRemoteCommand($cmd, true, $this->options['timeout']);
 
         return $process->isSuccessful();
     }
@@ -83,7 +83,8 @@ class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
     {
         return [
             'flags' => '',
-            'execOnRollback' => false
+            'execOnRollback' => false,
+            'timeout' => 120
         ];
     }
 }

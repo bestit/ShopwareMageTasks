@@ -24,6 +24,16 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
     }
 
     /**
+     * @return array
+     */
+    public function getDefaults()
+    {
+        return [
+            'timeout' => 240
+        ];
+    }
+
+    /**
      * Update all plugins in the given directory.
      *
      * @param string $directory
@@ -49,7 +59,7 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
                 $file->getFilename()
             );
 
-            $process = $this->runtime->runRemoteCommand($cmd, true, 240);
+            $process = $this->runtime->runRemoteCommand($cmd, true, $this->options['timeout']);
 
             if (!$this->isSuccessful($process)) {
                 echo $process->getOutput();
