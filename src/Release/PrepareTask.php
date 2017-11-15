@@ -8,7 +8,6 @@ use Mage\Task\Exception\SkipException;
 /**
  * Class PrepareTask
  *
- * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
  * @package BestIt\Mage\Tasks\Release
  */
 class PrepareTask extends MagePrepareTask

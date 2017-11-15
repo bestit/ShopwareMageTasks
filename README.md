@@ -9,10 +9,8 @@ magephp:
     php_executable: /usr/bin/php # Leave this empty if you want to use the globally installed php executable.
     custom_tasks:
         - BestIt\Mage\Tasks\Deploy\DeployTask
-        - BestIt\Mage\Tasks\Deploy\ReplacePlaceHoldersTask
         - BestIt\Mage\Tasks\Misc\CopyTask
-        - BestIt\Mage\Tasks\Quality\LintTask
-        - BestIt\Mage\Tasks\Quality\VendorBinTask
+        - BestIt\Mage\Tasks\Misc\SetEnvParametersTask
         - BestIt\Mage\Tasks\Release\PrepareTask
         - BestIt\Mage\Tasks\Release\SwPrepareTask
         - BestIt\Mage\Tasks\Shopware\ApplyMigrationsTask
@@ -27,9 +25,7 @@ magephp:
             hosts:
                 - production_server1
             pre-deploy:
-                - prepare/deploy # Replaces placeholder values in the config file.
-                - vendor/bin: { cmd: 'phpcs', dir: '../../custom', flags: '--standard=ruleset.xml' } # execute, for example, phpcs with given flags.
-                - quality/lint: { cmd: 'stylelint', dir: '../../themes', flags: '--syntax less' } # execute stylelint with less syntax.
+                - misc/set-env-parameters: { file: 'configs/config_prod.php' }
             on-deploy:
                 - deploy/release/prepare # Skips default prepare task which is not needed.
                 - prepare/sw-structure: { timeout: 500 } # Creates new release directory and copies all content of current into the created directory.
