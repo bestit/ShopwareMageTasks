@@ -7,7 +7,6 @@ use Mage\Task\AbstractTask;
 /**
  * Class PrepareTask
  *
- * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
  * @package BestIt\Mage\Tasks\Release
  */
 class SwPrepareTask extends AbstractTask

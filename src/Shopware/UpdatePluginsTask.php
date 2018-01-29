@@ -5,7 +5,6 @@ namespace BestIt\Mage\Tasks\Shopware;
 /**
  * Class UpdatePluginsTask
  *
- * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
  * @package BestIt\Mage\Tasks\Shopware
  */
 class UpdatePluginsTask extends AbstractUpdatePluginsTask

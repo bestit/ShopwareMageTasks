@@ -8,7 +8,6 @@ use Mage\Task\Exception\SkipException;
 /**
  * Class CopyTask
  *
- * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
  * @package BestIt\Mage\Tasks\Misc
  */
 class CopyTask extends MageCopyTask

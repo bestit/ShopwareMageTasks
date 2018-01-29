@@ -9,7 +9,6 @@ use Mage\Task\ExecuteOnRollbackInterface;
 /**
  * Class CommandTask
  *
- * @author Ahmad El-Bardan <ahmad.el-bardan@bestit-online.de>
  * @package BestIt\Mage\Tasks\Shopware
  */
 class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
