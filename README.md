@@ -42,7 +42,7 @@ magephp:
                 - shopware/update-plugins # Updates all (>=5.2 system) plugins on server(s).
                 - shopware/update-legacy-plugins: { sync_sources_folders: true } # Updates all (legacy) plugins on server(s). "Sources" are the Community/Local folders.
                 - shopware/migrate: { table_suffix: 'bestit', migration_dir: 'sql' } # Executes all SQL migrations on server(s). Both parameters are optional.
-                - shopware/command { cmd: 'sw:swaglicense:import ./licenses/licenses_prod.ini' } # Import licenses of license ini file into database, SwagLicense is needed for command
+                - shopware/command: { cmd: 'sw:swaglicense:import ./licenses/licenses_prod.ini' } # Import licenses of license ini file into database, SwagLicense is needed for command
                 - shopware/command: { cmd: 'sw:theme:cache:generate' } # Warms up the shopware theme cache on server(s).
 ```
 
