@@ -77,7 +77,33 @@ composer require bestit/shopware-mage-tasks
 Create a .mage.yml file in your project root directory and define your desired tasks as per the example above.
 For more information about what you can do check out the [documentation](http://magephp.com/).
 
-### Step 3: That's it!
+### Step 3: Initial folder structure on the deploy target
+
+Before the first deployment with mage, you need to set up the folder structure manually, because the original mage deploy/release/prepare-task is skipped and replaced by the prepare/sw-structure-task which performs an ordinary file copy from CURRENT to the newly created REALEASE:
+
+```
+- host_path on SERVER
+    - current -> release/initial    (Symlink)
+    - release
+        - initial
+            - bin
+            - configs
+            - custom
+            - engine
+            - files -> ../../files  (Symlink)
+            - media -> ../../media  (Symlink)
+            - recovery
+            - scripts
+            - themes
+            - var
+            - vendor
+            - web
+            ...
+    - media
+    - files
+```
+
+### Step 4: That's it!
 
 You just need to run the deployment script:
 
