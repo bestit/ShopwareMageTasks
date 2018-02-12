@@ -42,6 +42,9 @@ class SetEnvParametersTask extends AbstractTask
     public function execute()
     {
         $pathToConfig = $this->options['file'];
+        $pathToTarget = isset($this->options['target']) ? $this->options['target'] : $pathToConfig;
+        $prefix = $this->options['prefix'];
+        $encodeForXml = $this->options['encodeForXml'];
 
         if (!is_file($pathToConfig)) {
             throw new ErrorException("File not found: {$pathToConfig}");
@@ -52,11 +55,39 @@ class SetEnvParametersTask extends AbstractTask
         $envVars = array_merge_recursive($_ENV, $_SERVER);
 
         foreach ($envVars as $key => $value) {
-            $configContent = str_replace("%{$key}%", $value, $configContent);
+            /*
+             * Skip all values that are not a string (because we cannot use str_replace on those values).
+             * And also skip any keys which do not start with the given prefix.
+             * */
+            if (!is_string($value) || strpos($key, $prefix) !== 0) {
+                continue;
+            }
+
+            if ($encodeForXml) {
+                $value = htmlspecialchars($value, ENT_QUOTES);
+            }
+
+            /**
+             * Remove the environment prefix from the key, so that it matches up with the
+             * placeholders in the given file (the prefix should not be included in the placeholder)
+             */
+            $placeholder = str_replace($prefix, '', $key);
+
+            $configContent = str_replace("%{$placeholder}%", $value, $configContent);
         }
 
-        $res = file_put_contents($pathToConfig, $configContent);
+        $res = file_put_contents($pathToTarget, $configContent);
 
         return $res !== false;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDefaults()
+    {
+        return [
+            'prefix' => 'ENV'
+        ];
     }
 }
