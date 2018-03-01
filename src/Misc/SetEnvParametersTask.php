@@ -87,7 +87,8 @@ class SetEnvParametersTask extends AbstractTask
     public function getDefaults()
     {
         return [
-            'prefix' => 'ENV'
+            'prefix' => 'ENV_',
+            'encodeForXml' => false
         ];
     }
 }
