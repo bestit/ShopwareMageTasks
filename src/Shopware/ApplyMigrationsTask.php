@@ -37,8 +37,9 @@ class ApplyMigrationsTask extends AbstractTask
     public function execute()
     {
         $cmd = sprintf(
-            '%s ./scripts/ApplyDeltas.php --tablesuffix="%s" --migrationpath="./%s/" --shoppath="." --mode=update',
+            '%s ./%s/ApplyDeltas.php --tablesuffix="%s" --migrationpath="./%s/" --shoppath="." --mode=update',
             $this->getPathToPhpExecutable(),
+            $this->getScriptDirName(),
             $this->getTableSuffix(),
             $this->getMigrationDirName()
         );
@@ -71,5 +72,13 @@ class ApplyMigrationsTask extends AbstractTask
     protected function getMigrationDirName()
     {
         return isset($this->options['migration_dir']) ? $this->options['migration_dir'] : 'sql';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getScriptDirName()
+    {
+        return isset($this->options['script_dir']) ? $this->options['script_dir'] : 'scripts';
     }
 }
