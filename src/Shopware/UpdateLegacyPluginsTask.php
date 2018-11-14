@@ -62,7 +62,7 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
     {
         $namespaces = ['Backend', 'Core', 'Frontend'];
         $rootPath = $this->runtime->getEnvOption('from', '.');
-        $pathToPluginDir = "{$rootPath}/legacy_plugins/";
+        $pathToPluginDir = $this->getPluginRootPath("{$rootPath}/legacy_plugins/");
 
         if ($source !== null) {
             $pathToPluginDir .= $source;
@@ -104,5 +104,15 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
     protected function shouldSyncSourcesFolders()
     {
         return isset($this->options['sync_sources_folders']) ? $this->options['sync_sources_folders'] : false;
+    }
+
+    /**
+     * @param string $default
+     *
+     * @return string
+     */
+    protected function getPluginRootPath($default)
+    {
+        return isset($this->options['plugin_root_path']) ? $this->options['plugin_root_path'] : $default;
     }
 }
