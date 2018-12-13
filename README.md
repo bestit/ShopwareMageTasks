@@ -22,6 +22,8 @@ magephp:
             user: apache
             host_path: /var/www/html
             releases: 4
+            # Add php_executable in environment options to overwrite the global configuration above
+            php_executable: /usr/bin/env/path/to/php
             hosts:
                 - production_server1
             pre-deploy:
