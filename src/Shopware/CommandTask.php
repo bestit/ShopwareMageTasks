@@ -57,7 +57,12 @@ class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
         );
         $process = $this->runtime->runRemoteCommand($cmd, true, $this->options['timeout']);
 
-        return $process->isSuccessful();
+        $returnValue = $process->isSuccessful();
+        if ($this->options['ignoreReturnValue']) {
+            $returnValue = true;
+        }
+
+        return $returnValue;
     }
 
     /**
@@ -82,6 +87,10 @@ class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
     {
         return [
             'flags' => '',
+            // Ignores the command return value and always returns true
+            // The usage of this option should be considered carefully because with this options all values will
+            // be ignored. Exceptions and other errors wont be detected.
+            'ignoreReturnValue' => false,
             'execOnRollback' => false,
             'timeout' => 120
         ];
