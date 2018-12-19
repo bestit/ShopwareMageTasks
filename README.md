@@ -63,6 +63,17 @@ magephp:
                 # Executes all SQL migrations on server(s). Both parameters are optional.
                 - shopware/migrate: { table_suffix: 'bestit', migration_dir: 'sql' }
 
+                # Executes remote the shopware commands
+                
+                # If ignoreReturnValue is true all return values of the command will be ignored. 
+                # The usage of this option should be considered carefully because with this options no differentiation 
+                # between an successful command call and an error command call is possible.
+                # This option is necessary because specific shopware commands like plugin install will indicate an 
+                # if the plugin is already installed
+                
+                # Installs an activate an plugin
+                - shopware/command: { cmd: 'sw:plugin:install --activate Cron', ignoreReturnValue: true }
+
                 # Warms up the shopware theme cache on server(s).
                 - shopware/command: { cmd: 'sw:theme:cache:generate' }
 ```
