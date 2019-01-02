@@ -53,8 +53,9 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
             }
 
             $cmd = sprintf(
-                '%s ./bin/console sw:plugin:update %s',
+                '%s %s sw:plugin:update %s',
                 $this->getPathToPhpExecutable(),
+                $this->getPathToConsoleScript(),
                 $file->getFilename()
             );
 
@@ -78,7 +79,11 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
      */
     protected function refreshPluginList()
     {
-        $cmd = sprintf('%s ./bin/console sw:plugin:refresh', $this->getPathToPhpExecutable());
+        $cmd = sprintf(
+            '%s %s sw:plugin:refresh',
+            $this->getPathToPhpExecutable(),
+            $this->getPathToConsoleScript()
+        );
         $process = $this->runtime->runRemoteCommand($cmd, true);
 
         if (!$process->isSuccessful()) {

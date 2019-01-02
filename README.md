@@ -24,6 +24,8 @@ magephp:
             releases: 4
             # Add php_executable in environment options to overwrite the global configuration above
             php_executable: /usr/bin/env/path/to/php
+            # Add console_script_path in environment options to overwrite the default ./bin/console
+            console_script_path: ./bin/console
             hosts:
                 - production_server1
             pre-deploy:

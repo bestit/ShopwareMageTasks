@@ -50,8 +50,9 @@ class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
         }
 
         $cmd = sprintf(
-            '%s ./bin/console %s %s',
+            '%s %s %s %s',
             $this->getPathToPhpExecutable(),
+            $this->getPathToConsoleScript(),
             $this->getCommand(),
             $this->options['flags']
         );
