@@ -31,4 +31,26 @@ abstract class AbstractTask extends MageAbstractTask
 
         return $phpExecutable;
     }
+
+    /**
+     * Returns the console script path if configured, otherwise ./bin/console as default value.
+     *
+     * @return string The configured or default console script path.
+     */
+    protected function getPathToConsoleScript()
+    {
+        $consoleScriptPath = './bin/console';
+
+        $environmentConsoleScriptPath = $this->runtime->getEnvOption('console_script_path');
+
+        if ($environmentConsoleScriptPath !== null) {
+            $consoleScriptPath = $environmentConsoleScriptPath;
+        }
+
+        if ($this->runtime->getReleaseId() !== null) {
+            $consoleScriptPath = str_replace('%release%', $this->runtime->getReleaseId(), $consoleScriptPath);
+        }
+
+        return $consoleScriptPath;
+    }
 }
