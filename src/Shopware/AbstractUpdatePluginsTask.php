@@ -46,6 +46,7 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
         }
 
         $dirIterator = new DirectoryIterator($directory);
+        $allRemoteCommands = [];
 
         foreach ($dirIterator as $file) {
             if ($file->isDot() || !$file->isDir()) {
@@ -59,12 +60,25 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
                 $file->getFilename()
             );
 
-            $process = $this->runtime->runRemoteCommand($cmd, true, $this->options['timeout']);
+            if ($this->shouldUseSingleRemoteCommand()) {
+                $allRemoteCommands[] = $cmd;
+            } else {
+                $process = $this->runtime->runRemoteCommand($cmd, true, $this->options['timeout']);
+
+                if (!$this->isSuccessful($process)) {
+                    return false;
+                }
+            }
+        }
+
+        if ($this->shouldUseSingleRemoteCommand() && $allRemoteCommands !== []) {
+            $process = $this->runtime->runRemoteCommand(
+                implode(' && ', $allRemoteCommands),
+                true,
+                $this->options['timeout']
+            );
 
             if (!$this->isSuccessful($process)) {
-                echo $process->getOutput();
-                echo $process->getErrorOutput();
-
                 return false;
             }
         }
@@ -94,6 +108,16 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
     }
 
     /**
+     * Checks if the update should be executed as single remote command for all plugins.
+     *
+     * @return bool
+     */
+    protected function shouldUseSingleRemoteCommand()
+    {
+        return isset($this->options['single_remote_command']) ? (bool) $this->options['single_remote_command'] : false;
+    }
+
+    /**
      * Check if the process was successful.
      *
      * @param Process $process
@@ -107,6 +131,9 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
          * would be marked as failed even though it did not actually fail.
          */
         if (!$process->isSuccessful() && strpos($process->getOutput(), 'is up to date') === false) {
+            echo $process->getOutput();
+            echo $process->getErrorOutput();
+
             return false;
         }
 

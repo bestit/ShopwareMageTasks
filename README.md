@@ -57,10 +57,11 @@ magephp:
                 - exec: { cmd: './var/cache/clear_cache.sh', desc: 'Clear shopware cache.' }
 
                 # Updates all (>=5.2 system) plugins on server(s).
-                - shopware/update-plugins
+                # Single remote command for executing updates is activated, default false.
+                - shopware/update-plugins: { single_remote_command: true }
 
                 # Updates all (legacy) plugins on server(s). "Sources" are the Community/Local folders.
-                - shopware/update-legacy-plugins: { sync_sources_folders: true }
+                - shopware/update-legacy-plugins: { sync_sources_folders: true, single_remote_command: false }
 
                 # Executes all SQL migrations on server(s). Both parameters are optional.
                 - shopware/migrate: { table_suffix: 'bestit', migration_dir: 'sql' }
