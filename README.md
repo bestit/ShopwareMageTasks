@@ -58,7 +58,8 @@ magephp:
 
                 # Updates all (>=5.2 system) plugins on server(s).
                 # Single remote command for executing updates is activated, default false.
-                - shopware/update-plugins: { single_remote_command: true }
+                # Plugin refresh before update command is activated, default true.
+                - shopware/update-plugins: { single_remote_command: true, plugin_refresh: true }
 
                 # Updates all (legacy) plugins on server(s). "Sources" are the Community/Local folders.
                 - shopware/update-legacy-plugins: { sync_sources_folders: true, single_remote_command: false }

@@ -93,15 +93,17 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
      */
     protected function refreshPluginList()
     {
-        $cmd = sprintf(
-            '%s %s sw:plugin:refresh',
-            $this->getPathToPhpExecutable(),
-            $this->getPathToConsoleScript()
-        );
-        $process = $this->runtime->runRemoteCommand($cmd, true);
+        if ($this->shouldRefreshPluginList()) {
+            $cmd = sprintf(
+                '%s %s sw:plugin:refresh',
+                $this->getPathToPhpExecutable(),
+                $this->getPathToConsoleScript()
+            );
+            $process = $this->runtime->runRemoteCommand($cmd, true);
 
-        if (!$process->isSuccessful()) {
-            return false;
+            if (!$process->isSuccessful()) {
+                return false;
+            }
         }
 
         return true;
@@ -115,6 +117,16 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
     protected function shouldUseSingleRemoteCommand()
     {
         return isset($this->options['single_remote_command']) ? (bool) $this->options['single_remote_command'] : false;
+    }
+
+    /**
+     * Checks if the plugin list should be refreshed.
+     *
+     * @return bool
+     */
+    protected function shouldRefreshPluginList()
+    {
+        return isset($this->options['plugin_refresh']) ? (bool) $this->options['plugin_refresh'] : true;
     }
 
     /**
