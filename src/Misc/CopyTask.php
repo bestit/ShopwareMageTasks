@@ -26,6 +26,8 @@ class CopyTask extends MageCopyTask
      * Executes the task.
      *
      * @throws SkipException
+     *
+     * @return void
      */
     public function execute()
     {

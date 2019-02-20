@@ -40,8 +40,9 @@ class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
     /**
      * Executes the Command
      *
-     * @return bool
      * @throws SkipException
+     *
+     * @return bool
      */
     public function execute()
     {
@@ -69,8 +70,9 @@ class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
     /**
      * Get the SW command to be run.
      *
-     * @return string
      * @throws ErrorException
+     *
+     * @return string
      */
     protected function getCommand()
     {

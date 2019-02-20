@@ -35,8 +35,9 @@ class DeployTask extends AbstractTask
     /**
      * Executes the Command
      *
-     * @return bool
      * @throws ErrorException
+     *
+     * @return bool
      */
     public function execute()
     {

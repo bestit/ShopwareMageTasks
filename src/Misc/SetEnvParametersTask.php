@@ -35,9 +35,9 @@ class SetEnvParametersTask extends AbstractTask
     /**
      * Executes the Command
      *
-     * @return bool
-     *
      * @throws ErrorException
+     *
+     * @return bool
      */
     public function execute()
     {
@@ -67,7 +67,7 @@ class SetEnvParametersTask extends AbstractTask
                 $value = htmlspecialchars($value, ENT_QUOTES);
             }
 
-            /**
+            /*
              * Remove the environment prefix from the key, so that it matches up with the
              * placeholders in the given file (the prefix should not be included in the placeholder)
              */

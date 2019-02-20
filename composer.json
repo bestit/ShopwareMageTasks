@@ -3,7 +3,8 @@
     "description": "Common tasks to deploy a shopware project using MagePHP",
     "keywords": ["Shopware", "MagePHP", "Deployment"],
     "require": {
-        "andres-montanez/magallanes": "^3.0"
+        "andres-montanez/magallanes": "^3.0",
+        "php": "^7.0"
     },
     "autoload": {
         "psr-4": {
@@ -17,5 +18,8 @@
             "email": "ahmad.el-bardan@bestit-online.de"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require-dev": {
+        "bestit/php_codesniffer": "^1.2"
+    }
 }
