@@ -10,7 +10,8 @@ magephp:
     custom_tasks:
         - BestIt\Mage\Tasks\Deploy\DeployTask
         - BestIt\Mage\Tasks\Misc\CopyTask
-        - BestIt\Mage\Tasks\Misc\SetEnvParametersTask
+        - BestIt\Mage\Tasks\Env\CreateEnvFileTask        
+        - BestIt\Mage\Tasks\Env\SetEnvParametersTask        
         - BestIt\Mage\Tasks\Release\PrepareTask
         - BestIt\Mage\Tasks\Release\SwPrepareTask
         - BestIt\Mage\Tasks\Shopware\ApplyMigrationsTask
@@ -29,8 +30,13 @@ magephp:
             hosts:
                 - production_server1
             pre-deploy:
-                # Prefix
-                - misc/set-env-parameters: { file: 'configs/config_prod.php', prefix: 'ENV_' }
+                - env/create-env-file: 
+                    file: '.env'
+                    whitelist: 
+                        - foo
+                        - bar
+                # Prefix                                          
+                - env/set-env-parameters: { file: 'configs/config_prod.php', prefix: 'ENV_' }
             on-deploy:
                 # Skips default prepare task which is not needed.
                 - deploy/release/prepare
@@ -86,22 +92,10 @@ magephp:
 
 ### Step 1: Composer
 
-Currently the package is not registered on Packagist, so you will have to tell composer about it manually.
-You can do so by putting the following content in your composer.json file:
-
-```json
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/bestit/ShopwareMageTasks"
-        }
-    ]
-```
-
-Then from the command line, run:
+Run:
 
 ```
-composer require bestit/shopware-mage-tasks
+composer require bestit/shopware-mage-tasks --dev
 ```
 
 ### Step 2: .mage.yml
