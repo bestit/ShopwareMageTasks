@@ -9,9 +9,10 @@ magephp:
     php_executable: /usr/bin/php # Leave this empty if you want to use the globally installed php executable.
     custom_tasks:
         - BestIt\Mage\Tasks\Deploy\DeployTask
-        - BestIt\Mage\Tasks\Misc\CopyTask
         - BestIt\Mage\Tasks\Env\CreateEnvFileTask        
-        - BestIt\Mage\Tasks\Env\SetEnvParametersTask        
+        - BestIt\Mage\Tasks\Env\SetEnvParametersTask
+        - BestIt\Mage\Tasks\Misc\CopyTask
+        - BestIt\Mage\Tasks\Misc\DenyRobotsTxtTask        
         - BestIt\Mage\Tasks\Release\PrepareTask
         - BestIt\Mage\Tasks\Release\SwPrepareTask
         - BestIt\Mage\Tasks\Shopware\ApplyMigrationsTask
@@ -37,6 +38,7 @@ magephp:
                         - bar
                 # Prefix                                          
                 - env/set-env-parameters: { file: 'configs/config_prod.php', prefix: 'ENV_' }
+                - misc/deny-robots-txt
             on-deploy:
                 # Skips default prepare task which is not needed.
                 - deploy/release/prepare

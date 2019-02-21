@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace BestIt\Mage\Tasks\Env;
 
+use BestIt\Mage\Tasks\Misc\LocalFilesystemAwareTrait;
 use BestIt\Mage\Tasks\Shopware\AbstractTask;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
-use League\Flysystem\FilesystemInterface;
 use Mage\Task\Exception\ErrorException;
 use function getcwd;
 use function in_array;
@@ -19,14 +17,7 @@ use function in_array;
  */
 class CreateEnvFileTask extends AbstractTask
 {
-    /**
-     * This file system is registered to the currenct working directory.
-     *
-     * This property is filled with lazy loading by the getter.
-     *
-     * @var FilesystemInterface|null
-     */
-    private $filesystem = null;
+    use LocalFilesystemAwareTrait;
 
     /**
      * Executes the Command
@@ -91,20 +82,6 @@ class CreateEnvFileTask extends AbstractTask
     }
 
     /**
-     * Returns the used file system.
-     *
-     * @return FilesystemInterface
-     */
-    private function getFilesystem(): FilesystemInterface
-    {
-        if (!$this->filesystem) {
-            $this->setFilesystem(new Filesystem(new Local(getcwd())));
-        }
-
-        return $this->filesystem;
-    }
-
-    /**
      * Get the Name/Code of the Task
      *
      * @return string
@@ -112,19 +89,5 @@ class CreateEnvFileTask extends AbstractTask
     public function getName(): string
     {
         return 'env/create-env-file';
-    }
-
-    /**
-     * Sets the used file system.
-     *
-     * @param FilesystemInterface $filesystem
-     *
-     * @return $this
-     */
-    public function setFilesystem(FilesystemInterface $filesystem): self
-    {
-        $this->filesystem = $filesystem;
-
-        return $this;
     }
 }
