@@ -36,6 +36,7 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
      * Update all plugins in the given directory.
      *
      * @param string $directory
+     *
      * @return bool
      */
     protected function updateAllInDir($directory)
@@ -71,7 +72,7 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
             }
         }
 
-        if ($this->shouldUseSingleRemoteCommand() && $allRemoteCommands !== []) {
+        if ($this->shouldUseSingleRemoteCommand() && $allRemoteCommands) {
             $process = $this->runtime->runRemoteCommand(
                 implode(' && ', $allRemoteCommands),
                 true,
@@ -133,6 +134,7 @@ abstract class AbstractUpdatePluginsTask extends AbstractTask
      * Check if the process was successful.
      *
      * @param Process $process
+     *
      * @return bool
      */
     protected function isSuccessful(Process $process)

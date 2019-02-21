@@ -9,7 +9,11 @@ namespace BestIt\Mage\Tasks\Shopware;
  */
 class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
 {
-    /** @var string $pluginDir */
+    /**
+     * Temporary marker for every plugin namespace.
+     *
+     * @var string
+     */
     protected $pluginDir;
 
     /**
@@ -56,6 +60,7 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
 
     /**
      * @param string|null $source
+     *
      * @return bool
      */
     protected function syncNamespacesForSource($source = null)
@@ -81,6 +86,7 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
 
     /**
      * @param string $pluginDir
+     *
      * @return UpdateLegacyPluginsTask
      */
     protected function setPluginDir($pluginDir)
