@@ -1,5 +1,8 @@
 {
     "name": "bestit/shopware-mage-tasks",
+    "suggest": {
+        "b3nl/sw-migrations": "This library is needed if you want to use the task shopware/migrate"
+    },
     "description": "Common tasks to deploy a shopware project using MagePHP",
     "keywords": ["Shopware", "MagePHP", "Deployment"],
     "require": {
