@@ -13,6 +13,7 @@ magephp:
         - BestIt\Mage\Tasks\Env\SetEnvParametersTask
         - BestIt\Mage\Tasks\Misc\CopyTask
         - BestIt\Mage\Tasks\Misc\DenyRobotsTxtTask        
+        - BestIt\Mage\Tasks\Misc\SubComposerInstallTask        
         - BestIt\Mage\Tasks\Release\PrepareTask
         - BestIt\Mage\Tasks\Release\SwPrepareTask
         - BestIt\Mage\Tasks\Shopware\ApplyMigrationsTask
@@ -40,6 +41,12 @@ magephp:
                 - env/set-env-parameters: { file: 'configs/config_prod.php', prefix: 'ENV_' }
                 - misc/deny-robots-txt: { folder: 'OPTIONAL_LOCAL_FOLDER' }
             on-deploy:
+               - composer/sub-install: 
+                    flags: '--no-dev'
+                    globs: 
+                        - '/var/www/parent/*/composer.json'
+                        - '/custom/*/*/composer.json'
+                            
                 # Skips default prepare task which is not needed.
                 - deploy/release/prepare
 
