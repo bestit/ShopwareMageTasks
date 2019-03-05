@@ -38,7 +38,7 @@ magephp:
                         - bar
                 # Prefix                                          
                 - env/set-env-parameters: { file: 'configs/config_prod.php', prefix: 'ENV_' }
-                - misc/deny-robots-txt
+                - misc/deny-robots-txt: { folder: 'OPTIONAL_LOCAL_FOLDER' }
             on-deploy:
                 # Skips default prepare task which is not needed.
                 - deploy/release/prepare
