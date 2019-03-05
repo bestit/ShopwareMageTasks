@@ -23,7 +23,7 @@ class DenyRobotsTxtTask extends AbstractTask
     public function execute(): bool
     {
         return $this->getFilesystem()->put(
-            'robots.txt',
+            ($this->options['folder'] ?? '') . '/robots.txt',
             "User-agent: *\nDisallow: /\n"
         );
     }

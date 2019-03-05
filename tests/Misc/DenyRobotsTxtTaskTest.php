@@ -9,6 +9,7 @@ use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\Memory\MemoryAdapter;
 use PHPUnit\Framework\TestCase;
+use function uniqid;
 
 /**
  * Test DenyRobotsTxtTask
@@ -57,6 +58,25 @@ class DenyRobotsTxtTaskTest extends TestCase
         static::assertSame(
             "User-agent: *\nDisallow: /\n",
             $this->filesystem->read('robots.txt')
+        );
+    }
+
+    /**
+     * Checks if the robots.txt is created in the designated folder.
+     *
+     * @throws FileNotFoundException
+     *
+     * @return void
+     */
+    public function testExecuteWithFolder()
+    {
+        $this->fixture->setOptions(['folder' => $folder = uniqid()]);
+
+        $this->fixture->execute();
+
+        static::assertSame(
+            "User-agent: *\nDisallow: /\n",
+            $this->filesystem->read($folder . '/robots.txt')
         );
     }
 
