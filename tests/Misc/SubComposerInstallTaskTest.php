@@ -74,12 +74,12 @@ class SubComposerInstallTaskTest extends TestCase
             ->method('runCommand')
             ->withConsecutive(
                 [
-                    'composer.phar install -o -d "C:\PHPProjects\ShopwareMageTasks\tests\Misc/fixtures/' .
+                    'composer.phar install -o -d "' . __DIR__ . '/fixtures/' .
                     'SubComposerInstallTask/folder1"',
                     $timeout
                 ],
                 [
-                    'composer.phar install -o -d "C:\PHPProjects\ShopwareMageTasks\tests\Misc/fixtures/' .
+                    'composer.phar install -o -d "' . __DIR__ . '/fixtures/' .
                     'SubComposerInstallTask/folder2/folder3/folder4/folder5"',
                     $timeout
                 ]

@@ -37,11 +37,12 @@ class ApplyMigrationsTask extends AbstractTask
     public function execute()
     {
         $cmd = sprintf(
-            '%s ./%s/ApplyDeltas.php --tablesuffix="%s" --migrationpath="./%s/" --shoppath="." --mode=update',
+            '%s ./%s/ApplyDeltas.php --tablesuffix="%s" --migrationpath="./%s/" --shoppath="%s" --mode=update',
             $this->getPathToPhpExecutable(),
             $this->getScriptDirName(),
             $this->getTableSuffix(),
-            $this->getMigrationDirName()
+            $this->getMigrationDirName(),
+            $this->getShopPath()
         );
 
         $process = $this->runtime->runRemoteCommand($cmd, true, $this->options['timeout']);
@@ -80,5 +81,13 @@ class ApplyMigrationsTask extends AbstractTask
     protected function getScriptDirName()
     {
         return isset($this->options['script_dir']) ? $this->options['script_dir'] : 'scripts';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getShopPath()
+    {
+        return isset($this->options['shop_path']) ? $this->options['shop_path'] : '.';
     }
 }
