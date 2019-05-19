@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BestIt\Mage\Tasks\Shopware;
 
+use BestIt\Mage\Tasks\TestGettersTrait;
 use Mage\Runtime\Runtime;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
@@ -15,24 +16,28 @@ use Symfony\Component\Process\Process;
  */
 class ApplyMigrationsTaskTest extends TestCase
 {
+    use TestGettersTrait;
+
     /**
      * The tested class.
      *
      * @var ApplyMigrationsTask|null
      */
-    private $fixture;
+    protected $fixture;
 
     /**
      * Returns the asserts for the getter check.
      *
-     * @return array
+     * @see TestGettersTrait::testGetters
+     *
+     * @return array The first value is the getter property, and the second value is the value which is returned.
      */
     public function getGetterAsserts(): array
     {
         return [
-            'defaults' => ['getDefaults', ['timeout' => 120,],],
-            'description' => ['getDescription', '[Shopware] Apply migrations.',],
-            'name' => ['getName', 'shopware/migrate',],
+            'defaults' => ['defaults', ['timeout' => 120,],],
+            'description' => ['description', '[Shopware] Apply migrations.',],
+            'name' => ['name', 'shopware/migrate',],
         ];
     }
 
@@ -113,20 +118,5 @@ class ApplyMigrationsTaskTest extends TestCase
         $this->fixture->setOptions();
 
         static::assertTrue($this->fixture->execute());
-    }
-
-    /**
-     * Checks that the getters return the correct value.
-     *
-     * @dataProvider getGetterAsserts
-     *
-     * @param string $getterName
-     * @param mixed $value
-     *
-     * @return void
-     */
-    public function testGetters(string $getterName, $value)
-    {
-        static::assertSame($value, $this->fixture->{$getterName}());
     }
 }

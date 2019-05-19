@@ -14,6 +14,8 @@ magephp:
         - BestIt\Mage\Tasks\Misc\CopyTask
         - BestIt\Mage\Tasks\Misc\DenyRobotsTxtTask        
         - BestIt\Mage\Tasks\Misc\SubComposerInstallTask        
+        - BestIt\Mage\Tasks\Opcode\BuildCleaner
+        - BestIt\Mage\Tasks\Opcode\CleanReset
         - BestIt\Mage\Tasks\Release\PrepareTask
         - BestIt\Mage\Tasks\Release\SwPrepareTask
         - BestIt\Mage\Tasks\Shopware\ApplyMigrationsTask
@@ -40,6 +42,7 @@ magephp:
                 # Prefix                                          
                 - env/set-env-parameters: { file: 'configs/config_prod.php', prefix: 'ENV_' }
                 - misc/deny-robots-txt: { folder: 'OPTIONAL_LOCAL_FOLDER' }
+                - opcode/build-cleaner: { doc_root: 'RELATIVE_DOC_ROOT for saving the cleaner script.' }
             on-deploy:
                - composer/sub-install: 
                     flags: '--no-dev'
@@ -95,6 +98,13 @@ magephp:
 
                 # Warms up the shopware theme cache on server(s).
                 - shopware/command: { cmd: 'sw:theme:cache:generate' }
+            post-deploy:
+                - opcode/build-cleaner: 
+                    doc_root: 'RELATIVE_DOC_ROOT for saving the cleaner script.'
+                    urls:
+                        - $APPSERVER_URL_1
+                        - $APPSERVER_URL_2
+                        - $APPSERVER_URL_3
 ```
 
 ## Installation
