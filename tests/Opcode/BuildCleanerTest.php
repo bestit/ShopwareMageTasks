@@ -80,7 +80,7 @@ if (function_exists('opcache_reset')) {
             ->expects(static::once())
             ->method('runCommand')
             ->with(sprintf(
-                'echo "%s" >> %s/apc_clear.php',
+                'echo "%s" > %s/apc_clear.php',
                 $template,
                 $docRoot
             ))

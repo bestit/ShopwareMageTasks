@@ -79,7 +79,7 @@ if (function_exists('opcache_reset')) {
 }";
 
         $process = $this->runtime->runCommand(sprintf(
-            'echo "%s" >> %s/apc_clear.php',
+            'echo "%s" > %s/apc_clear.php',
             $template,
             $this->getDocumentRoot()
         ));
