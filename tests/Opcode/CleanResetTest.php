@@ -50,9 +50,11 @@ class CleanResetTest extends TestCase
     /**
      * Checks the full execute run.
      *
+     * @param bool $withDelete
+     *
      * @return void
      */
-    public function testExecute()
+    public function testExecute(bool $withDelete = true)
     {
         assert($this->fixture instanceof CleanReset);
 
@@ -61,16 +63,26 @@ class CleanResetTest extends TestCase
             ->setOptions([
                 'doc_root' => $docRoot = uniqid(),
                 'urls' => [$url1 = 'http://example.com', $url2 = 'http://foo.example.com',],
+                'without_delete' => !$withDelete,
             ]);
 
-        $runtime
-            ->expects(static::exactly(3))
-            ->method('runCommand')
-            ->withConsecutive(
+        if ($withDelete) {
+            $commandRunsArguments = [
                 ['curl -k -X GET ' . $url1 . '/apc_clear.php',],
                 ['curl -k -X GET ' . $url2 . '/apc_clear.php',],
-                ['rm -rf ' . $docRoot . '/apc_clear.php',]
-            )
+                ['rm -rf ' . $docRoot . '/apc_clear.php',],
+            ];
+        } else {
+            $commandRunsArguments = [
+                ['curl -k -X GET ' . $url1 . '/apc_clear.php',],
+                ['curl -k -X GET ' . $url2 . '/apc_clear.php',],
+            ];
+        }
+
+        $runtime
+            ->expects(static::exactly(count($commandRunsArguments)))
+            ->method('runCommand')
+            ->withConsecutive(...$commandRunsArguments)
             ->willReturnOnConsecutiveCalls(
                 $this->createMock(Process::class),
                 $this->createMock(Process::class),
@@ -78,11 +90,21 @@ class CleanResetTest extends TestCase
             );
 
         $process
-            ->expects(static::once())
+            ->expects($withDelete ? static::once() : static::never())
             ->method('isSuccessful')
             ->willReturn(true);
 
         static::assertTrue($this->fixture->execute());
+    }
+
+    /**
+     * Checks the execute run without delete.
+     *
+     * @return void
+     */
+    public function testExecuteWithoutDelete()
+    {
+        $this->testExecute(false);
     }
 
     /**

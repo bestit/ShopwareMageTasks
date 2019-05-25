@@ -25,9 +25,15 @@ class CleanReset extends AbstractTask
             $this->runtime->runCommand('curl -k -X GET ' . $url . '/apc_clear.php');
         }
 
-        return $this->runtime
-            ->runCommand('rm -rf ' . ($this->options['doc_root'] ?? '.') . '/apc_clear.php')
-            ->isSuccessful();
+        $deleteSuccess = true;
+
+        if (!@$this->options['without_delete']) {
+            $deleteSuccess = $this->runtime
+                ->runCommand('rm -rf ' . ($this->options['doc_root'] ?? '.') . '/apc_clear.php')
+                ->isSuccessful();
+        }
+
+        return $deleteSuccess;
     }
 
     /**
