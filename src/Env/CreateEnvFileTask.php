@@ -72,6 +72,12 @@ class CreateEnvFileTask extends AbstractTask
         $contents = '';
         $whitelist = is_array($this->options['whitelist']) ? $this->options['whitelist'] : [];
 
+        if ($whitelist && !$_ENV) {
+            throw new ErrorException(
+                'There should be env vars. We suggest changing the php config "variables_order" to "EGPCS".'
+            );
+        }
+
         foreach ($_ENV as $key => $value) {
             if (!$whitelist || in_array($key, $whitelist)) {
                 $contents .= "{$key}={$value}\n";

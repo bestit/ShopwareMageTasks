@@ -67,6 +67,25 @@ class CreateEnvFileTaskTest extends TestCase
     }
 
     /**
+     * Checks if an error is emitted, if there is env vars but an whitelist.
+     *
+     * @throws ErrorException
+     *
+     * @return void
+     */
+    public function testExecuteNoEnvVars()
+    {
+        static::expectException(ErrorException::class);
+
+        $this->fixture->setOptions([
+            'file' => $file = uniqid(),
+            'whitelist' => [uniqid(),],
+        ]);
+
+        $this->fixture->execute();
+    }
+
+    /**
      * Checks if an error is emitted, if there is no file.
      *
      * @throws ErrorException

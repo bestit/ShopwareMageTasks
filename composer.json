@@ -33,5 +33,11 @@
         "phpunit/phpunit": "^6.0",
         "league/flysystem-memory": "^1.0",
         "vlucas/phpdotenv": "^3.3"
+    },
+    "scripts": {
+        "low-level-tests": [
+            "phpcs -n",
+            "phpunit"
+        ]
     }
 }
