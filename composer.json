@@ -32,7 +32,8 @@
         "best-it/php_codesniffer": "^1.2 || ^2.0",
         "phpunit/phpunit": "^6.0",
         "league/flysystem-memory": "^1.0",
-        "vlucas/phpdotenv": "^3.3"
+        "vlucas/phpdotenv": "^3.3",
+        "mikey179/vfsstream": "^1.6.6"
     },
     "scripts": {
         "low-level-tests": [
