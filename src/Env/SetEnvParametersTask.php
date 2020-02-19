@@ -45,6 +45,8 @@ class SetEnvParametersTask extends AbstractTask
         $pathToTarget = isset($this->options['target']) ? $this->options['target'] : $pathToConfig;
         $prefix = $this->options['prefix'];
         $encodeForXml = $this->options['encodeForXml'];
+        $replace = $this->options['replaceEnvVariables'];
+        $wrapper = $this->options['placeholderWrapper'];
 
         if (!is_file($pathToConfig)) {
             throw new ErrorException("File not found: {$pathToConfig}");
@@ -52,14 +54,18 @@ class SetEnvParametersTask extends AbstractTask
 
         $configContent = file_get_contents($pathToConfig);
 
-        $envVars = array_merge_recursive($_ENV, $_SERVER);
+        if ($replace) {
+            $envVars = array_replace_recursive($_ENV, $_SERVER);
+        } else {
+            $envVars = array_merge_recursive($_ENV, $_SERVER);
+        }
 
         foreach ($envVars as $key => $value) {
             /*
              * Skip all values that are not a string (because we cannot use str_replace on those values).
              * And also skip any keys which do not start with the given prefix.
              * */
-            if (!is_string($value) || strpos($key, $prefix) !== 0) {
+            if (!is_string($value) || (!empty($prefix) && strpos($key, $prefix) !== 0)) {
                 continue;
             }
 
@@ -73,7 +79,7 @@ class SetEnvParametersTask extends AbstractTask
              */
             $placeholder = str_replace($prefix, '', $key);
 
-            $configContent = str_replace("%{$placeholder}%", $value, $configContent);
+            $configContent = str_replace("{$wrapper}{$placeholder}{$wrapper}", $value, $configContent);
         }
 
         $res = file_put_contents($pathToTarget, $configContent);
@@ -88,7 +94,9 @@ class SetEnvParametersTask extends AbstractTask
     {
         return [
             'prefix' => 'ENV_',
-            'encodeForXml' => false
+            'encodeForXml' => false,
+            'replaceEnvVariables' => false,
+            'placeholderWrapper' => '%'
         ];
     }
 }

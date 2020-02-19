@@ -42,7 +42,7 @@ magephp:
                         - foo
                         - bar
                 # Prefix                                          
-                - env/set-env-parameters: { file: 'configs/config_prod.php', prefix: 'ENV_' }
+                - env/set-env-parameters: { file: 'configs/config_prod.php', prefix: 'ENV_', replaceEnvVariables: true, placeholderWrapper: '__' }
                 # Iterates over all module sub directories, looking for parameter.xml..dist files and creates parameter.xmls from them.
                 - env/recursive-set-env-parameters: { directory: 'custom/plugins/PluginName/Module', fileName: 'parameter.xml.dist', prefix: 'ENV_', encodeForXml: true, deleteTargets: true }
                 - misc/deny-robots-txt: { folder: 'OPTIONAL_LOCAL_FOLDER' }
