@@ -9,6 +9,7 @@ magephp:
     php_executable: /usr/bin/php # Leave this empty if you want to use the globally installed php executable.
     custom_tasks:
         - BestIt\Mage\Tasks\Deploy\DeployTask
+        - BestIt\Mage\Tasks\Deploy\Tar\PrepareSubfolderTask     # replaces the original deploy/tar/prepare task
         - BestIt\Mage\Tasks\Env\CreateEnvFileTask        
         - BestIt\Mage\Tasks\Env\SetEnvParametersTask
         - BestIt\Mage\Tasks\Env\RecursiveSetEnvParametersTask
