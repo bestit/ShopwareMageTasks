@@ -9,6 +9,8 @@ use BestIt\Mage\Tasks\Shopware\AbstractTask;
 use Mage\Task\Exception\ErrorException;
 use function getcwd;
 use function in_array;
+use function is_numeric;
+use function str_replace;
 
 /**
  * Creates a local environment file (relative to the working directory) for the actual php environment.
@@ -80,6 +82,10 @@ class CreateEnvFileTask extends AbstractTask
 
         foreach ($_ENV as $key => $value) {
             if (!$whitelist || in_array($key, $whitelist)) {
+                if ((!is_numeric($value)) && (!in_array($value, ['false', 'true']))) {
+                    $value = '"' . str_replace('"', '\\"', $value) . '"';
+                }
+
                 $contents .= "{$key}={$value}\n";
             }
         }

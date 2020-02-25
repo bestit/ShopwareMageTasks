@@ -164,14 +164,15 @@ class CreateEnvFileTaskTest extends TestCase
             'file' => $file = uniqid(),
             'whitelist' => [
                 'foo.bar',
-                'key2'
+                'key2',
+                'key4'
             ]
         ]);
 
         $this->fixture->execute();
 
         static::assertSame(
-            "foo.bar=acme\nkey2=value2\n",
+            "foo.bar=\"acme\"\nkey2=\"value2\"\nkey4=0\n",
             $this->filesystem->read($file)
         );
     }

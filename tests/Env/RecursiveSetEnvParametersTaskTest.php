@@ -2,10 +2,10 @@
 
 namespace BestIt\Mage\Tasks\Env;
 
-use org\bovigo\vfs\vfsStreamFile;
-use PHPUnit\Framework\TestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStreamFile;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the RecursiveSetEnvParametersTask
