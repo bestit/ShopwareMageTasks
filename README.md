@@ -9,6 +9,7 @@ magephp:
     php_executable: /usr/bin/php # Leave this empty if you want to use the globally installed php executable.
     custom_tasks:
         - BestIt\Mage\Tasks\Deploy\DeployTask
+        - BestIt\Mage\Tasks\Deploy\Tar\PrepareSubfolderTask     # replaces the original deploy/tar/prepare task
         - BestIt\Mage\Tasks\Env\CreateEnvFileTask        
         - BestIt\Mage\Tasks\Env\SetEnvParametersTask
         - BestIt\Mage\Tasks\Env\RecursiveSetEnvParametersTask
@@ -41,7 +42,7 @@ magephp:
                         - foo
                         - bar
                 # Prefix                                          
-                - env/set-env-parameters: { file: 'configs/config_prod.php', prefix: 'ENV_' }
+                - env/set-env-parameters: { file: 'configs/config_prod.php', prefix: 'ENV_', placeholderWrapper: '__' }
                 # Iterates over all module sub directories, looking for parameter.xml..dist files and creates parameter.xmls from them.
                 - env/recursive-set-env-parameters: { directory: 'custom/plugins/PluginName/Module', fileName: 'parameter.xml.dist', prefix: 'ENV_', encodeForXml: true, deleteTargets: true }
                 - misc/deny-robots-txt: { folder: 'OPTIONAL_LOCAL_FOLDER' }
