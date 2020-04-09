@@ -45,7 +45,6 @@ class SetEnvParametersTask extends AbstractTask
         $pathToTarget = isset($this->options['target']) ? $this->options['target'] : $pathToConfig;
         $prefix = $this->options['prefix'];
         $encodeForXml = $this->options['encodeForXml'];
-        $replace = $this->options['replaceEnvVariables'];
         $wrapper = $this->options['placeholderWrapper'];
 
         if (!is_file($pathToConfig)) {
@@ -54,11 +53,7 @@ class SetEnvParametersTask extends AbstractTask
 
         $configContent = file_get_contents($pathToConfig);
 
-        if ($replace) {
-            $envVars = array_replace_recursive($_ENV, $_SERVER);
-        } else {
-            $envVars = array_merge_recursive($_ENV, $_SERVER);
-        }
+        $envVars = array_replace_recursive($_ENV, $_SERVER);
 
         foreach ($envVars as $key => $value) {
             /*
@@ -95,7 +90,6 @@ class SetEnvParametersTask extends AbstractTask
         return [
             'prefix' => 'ENV_',
             'encodeForXml' => false,
-            'replaceEnvVariables' => false,
             'placeholderWrapper' => '%'
         ];
     }
