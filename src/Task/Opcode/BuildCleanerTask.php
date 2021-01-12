@@ -17,43 +17,9 @@ class BuildCleanerTask extends AbstractTask
     /**
      * The default document root for the cleaner.
      *
-     * @internal
      * @var string
      */
-    public const DEFAULT_DOC_ROOT = '.';
-
-    /**
-     * Returns document where the cleaner is saved.
-     *
-     * @return string
-     */
-    private function getDocumentRoot(): string
-    {
-        return $this->options['doc_root'] ?? self::DEFAULT_DOC_ROOT;
-    }
-
-    /**
-     * Get the Name/Code of the Task.
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return 'opcode/build-cleaner';
-    }
-
-    /**
-     * Get a short Description of the Task.
-     *
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return sprintf(
-            '[opcode] Creates the cleaner in %s',
-            $this->getDocumentRoot(),
-        );
-    }
+    private const DEFAULT_DOC_ROOT = '.';
 
     /**
      * Saves a clean script in the given document root to clean the opcode/apc-cache in the context of the webserver.
@@ -85,5 +51,38 @@ if (function_exists('opcache_reset')) {
         ));
 
         return $process->isSuccessful();
+    }
+
+    /**
+     * Get a short Description of the Task.
+     *
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return sprintf(
+            '[opcode] Creates the cleaner in %s',
+            $this->getDocumentRoot(),
+        );
+    }
+
+    /**
+     * Returns document where the cleaner is saved.
+     *
+     * @return string
+     */
+    private function getDocumentRoot(): string
+    {
+        return $this->options['doc_root'] ?? self::DEFAULT_DOC_ROOT;
+    }
+
+    /**
+     * Get the Name/Code of the Task.
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'opcode/build-cleaner';
     }
 }

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace BestIt\Mage\Task\Env;
 
 use Dotenv\Dotenv;
+use Dotenv\Repository\RepositoryInterface;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\Memory\MemoryAdapter;
 use Mage\Task\Exception\ErrorException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use function basename;
 use function dirname;
@@ -28,6 +30,13 @@ class CreateEnvFileTaskTest extends TestCase
      * The env file template for testing.
      */
     public const TEST_FILE = __DIR__ . '/fixtures/createEnvFileTask/test.env';
+
+    /**
+     * The mocked RepositoryInterface
+     *
+     * @var RepositoryInterface|MockObject
+     */
+    private $envRepository;
 
     /**
      * This filesystem is injected per default.
@@ -57,7 +66,7 @@ class CreateEnvFileTaskTest extends TestCase
      */
     private function loadTestEnv(): void
     {
-        Dotenv::create(dirname(self::TEST_FILE), basename(self::TEST_FILE))->overload();
+        Dotenv::createImmutable(dirname(self::TEST_FILE), basename(self::TEST_FILE))->load();
     }
 
     /**
@@ -75,16 +84,20 @@ class CreateEnvFileTaskTest extends TestCase
         $this->fixture->setFilesystem($this->filesystem = new Filesystem(new MemoryAdapter()));
     }
 
-    protected function tearDown()
+    /**
+     * Tears down the test.
+     *
+     * @return void
+     */
+    protected function tearDown(): void
     {
         $_ENV = $this->envVariableBackup;
     }
 
-
     /**
      * Checks if an error is emitted, if there is env vars but an whitelist.
      *
-     * @throws ErrorException
+     * @throws ErrorException on successful test
      *
      * @return void
      */
@@ -103,7 +116,7 @@ class CreateEnvFileTaskTest extends TestCase
     /**
      * Checks if an error is emitted, if there is no file.
      *
-     * @throws ErrorException
+     * @throws ErrorException on successful test
      *
      * @return void
      */
@@ -119,8 +132,8 @@ class CreateEnvFileTaskTest extends TestCase
     /**
      * Checks if every env var is saved in the file in the typical dotenv format.
      *
-     * @throws ErrorException
-     * @throws FileNotFoundException
+     * @throws ErrorException when no env file is given
+     * @throws FileNotFoundException when no file can be found
      *
      * @return void
      */
@@ -141,8 +154,8 @@ class CreateEnvFileTaskTest extends TestCase
     /**
      * Checks if every env var is saved in the file in the typical dotenv format because the whitelist is invalid.
      *
-     * @throws ErrorException
-     * @throws FileNotFoundException
+     * @throws ErrorException when no env file is given
+     * @throws FileNotFoundException when no file can be found
      *
      * @return void
      */
@@ -166,8 +179,8 @@ class CreateEnvFileTaskTest extends TestCase
     /**
      * Checks if only whitelisted env vars are saved in the file in the typical dotenv format.
      *
-     * @throws ErrorException
-     * @throws FileNotFoundException
+     * @throws ErrorException when no env file is given
+     * @throws FileNotFoundException when no file can be found
      *
      * @return void
      */

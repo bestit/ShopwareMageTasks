@@ -17,7 +17,6 @@ trait LocalFilesystemAwareTrait
 {
     /**
      * This file system is registered to the current working directory.
-     *
      * This property is filled with lazy loading by the getter.
      *
      * @var FilesystemInterface|null

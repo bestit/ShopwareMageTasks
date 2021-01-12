@@ -18,15 +18,17 @@ use PHPUnit\Framework\TestCase;
 class RecursiveSetEnvParametersTaskTest extends TestCase
 {
     /**
-     * @var RecursiveSetEnvParametersTask
-     */
-    private RecursiveSetEnvParametersTask $service;
-    /**
      * @var  vfsStreamDirectory
      */
     private vfsStreamDirectory $directoryMock;
+    /**
+     * @var RecursiveSetEnvParametersTask
+     */
+    private RecursiveSetEnvParametersTask $service;
 
     /**
+     * Sets up the tests
+     *
      * @return void
      */
     public function setUp(): void
@@ -55,6 +57,8 @@ class RecursiveSetEnvParametersTaskTest extends TestCase
     }
 
     /**
+     * Tests that the constants are correct
+     *
      * @return void
      */
     public function testConstants(): void
@@ -63,6 +67,8 @@ class RecursiveSetEnvParametersTaskTest extends TestCase
     }
 
     /**
+     * Test the execute method
+     *
      * @return void
      */
     public function testExecute(): void
@@ -84,6 +90,8 @@ class RecursiveSetEnvParametersTaskTest extends TestCase
     }
 
     /**
+     * Tests the getDefaults method
+     *
      * @return void
      */
     public function testGetDefaults(): void
@@ -95,6 +103,8 @@ class RecursiveSetEnvParametersTaskTest extends TestCase
     }
 
     /**
+     * Tests the getDescription method
+     *
      * @return void
      */
     public function testGetDescription(): void
@@ -106,6 +116,8 @@ class RecursiveSetEnvParametersTaskTest extends TestCase
     }
 
     /**
+     * Tests the getName method
+     *
      * @return void
      */
     public function testGetName(): void

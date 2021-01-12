@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace BestIt\Mage\Task\Opcode;
 
-use BestIt\Mage\TestGettersTrait;
 use Mage\Runtime\Runtime;
 use Mage\Task\AbstractTask;
 use PHPUnit\Framework\TestCase;
@@ -20,12 +19,8 @@ use function uniqid;
  */
 class CleanResetTest extends TestCase
 {
-    use TestGettersTrait;
-
     /**
      * Returns the asserts for the getter check.
-     *
-     * @see TestGettersTrait::testGetters
      *
      * @return array The first value is the getter property, and the second value is the value which is returned.
      */

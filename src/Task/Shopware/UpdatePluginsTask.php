@@ -12,16 +12,6 @@ namespace BestIt\Mage\Task\Shopware;
 class UpdatePluginsTask extends AbstractUpdatePluginsTask
 {
     /**
-     * Get the Name/Code of the Task
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return 'shopware/update-plugins';
-    }
-
-    /**
      * Get a short Description of the Task
      *
      * @return string
@@ -32,6 +22,18 @@ class UpdatePluginsTask extends AbstractUpdatePluginsTask
     }
 
     /**
+     * Get the Name/Code of the Task
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'shopware/update-plugins';
+    }
+
+    /**
+     * Get the plugin directory
+     *
      * @return string
      */
     protected function getPluginDir(): string

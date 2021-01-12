@@ -15,29 +15,9 @@ use Mage\Task\Exception\ErrorException;
 class SetEnvParametersTask extends AbstractTask
 {
     /**
-     * Get the Name/Code of the Task
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return 'env/set-env-parameters';
-    }
-
-    /**
-     * Get a short Description of the Task
-     *
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return '[Env] Set parameters from env variables.';
-    }
-
-    /**
      * Executes the Command
      *
-     * @throws ErrorException
+     * @throws ErrorException when there is no config file
      *
      * @return bool
      */
@@ -85,6 +65,8 @@ class SetEnvParametersTask extends AbstractTask
     }
 
     /**
+     * Gets the default values
+     *
      * @return array
      */
     public function getDefaults(): array
@@ -94,5 +76,25 @@ class SetEnvParametersTask extends AbstractTask
             'encodeForXml' => false,
             'placeholderWrapper' => '%',
         ];
+    }
+
+    /**
+     * Get a short Description of the Task
+     *
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return '[Env] Set parameters from env variables.';
+    }
+
+    /**
+     * Get the Name/Code of the Task
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'env/set-env-parameters';
     }
 }

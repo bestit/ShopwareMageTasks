@@ -23,34 +23,16 @@ class RecursiveSetEnvParametersTask extends SetEnvParametersTask
     public const DIST_FILE_EXTENSION = '.dist';
 
     /**
-     * Get the Name/Code of the Task
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return 'env/recursive-set-env-parameters';
-    }
-
-    /**
-     * Get a short Description of the Task
-     *
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return '[Env] Set parameters from env variables in dist files recursively.';
-    }
-
-    /**
      * Executes the Command
      *
-     * @throws ErrorException
+     * @throws ErrorException when there is no config file
      *
      * @return bool
      */
     public function execute(): bool
     {
+        $result = true;
+
         $fileName = $this->options['fileName'];
 
         $directory = __DIR__;
@@ -71,7 +53,7 @@ class RecursiveSetEnvParametersTask extends SetEnvParametersTask
         }
 
         if (count($files) === 0) {
-            return false;
+            $result = false;
         }
 
         foreach ($files as $file) {
@@ -85,14 +67,17 @@ class RecursiveSetEnvParametersTask extends SetEnvParametersTask
 
             // Call parent to create file from dist.
             if (parent::execute() === false) {
-                return false;
+                $result = false;
+                break;
             }
         }
 
-        return true;
+        return $result;
     }
 
     /**
+     * Gets the default values
+     *
      * @return array
      */
     public function getDefaults(): array
@@ -101,5 +86,25 @@ class RecursiveSetEnvParametersTask extends SetEnvParametersTask
         $defaults['deleteTargets'] = false;
 
         return $defaults;
+    }
+
+    /**
+     * Get a short Description of the Task
+     *
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return '[Env] Set parameters from env variables in dist files recursively.';
+    }
+
+    /**
+     * Get the Name/Code of the Task
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'env/recursive-set-env-parameters';
     }
 }

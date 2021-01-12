@@ -14,20 +14,6 @@ use PHPUnit\Framework\TestCase;
 class LegacyTasksTest extends TestCase
 {
     /**
-     * Test that legacy class name works.
-     *
-     * @dataProvider getLegacyClassNames
-     *
-     * @param string $legacyClassName
-     *
-     * @return void
-     */
-    public function testLegacyClassName(string $legacyClassName): void
-    {
-        self::assertTrue(class_exists($legacyClassName));
-    }
-
-    /**
      * Get legacy class names.
      *
      * @return array
@@ -53,5 +39,19 @@ class LegacyTasksTest extends TestCase
             ['\BestIt\Mage\Tasks\Shopware\UpdateLegacyPluginsTask'],
             ['\BestIt\Mage\Tasks\Shopware\UpdatePluginsTask',],
         ];
+    }
+
+    /**
+     * Test that legacy class name works.
+     *
+     * @dataProvider getLegacyClassNames
+     *
+     * @param string $legacyClassName
+     *
+     * @return void
+     */
+    public function testLegacyClassName(string $legacyClassName): void
+    {
+        self::assertTrue(class_exists($legacyClassName));
     }
 }

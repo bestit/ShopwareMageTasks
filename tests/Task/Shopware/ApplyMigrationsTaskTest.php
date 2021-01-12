@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace BestIt\Mage\Task\Shopware;
 
-use BestIt\Mage\TestGettersTrait;
 use Mage\Runtime\Runtime;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
@@ -16,8 +15,6 @@ use Symfony\Component\Process\Process;
  */
 class ApplyMigrationsTaskTest extends TestCase
 {
-    use TestGettersTrait;
-
     /**
      * The tested class.
      *
@@ -27,8 +24,6 @@ class ApplyMigrationsTaskTest extends TestCase
 
     /**
      * Returns the asserts for the getter check.
-     *
-     * @see TestGettersTrait::testGetters
      *
      * @return array The first value is the getter property, and the second value is the value which is returned.
      */

@@ -15,29 +15,9 @@ use Mage\Task\Exception\ErrorException;
 class DeployTask extends AbstractTask
 {
     /**
-     * Get the Name/Code of the Task
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return 'deploy';
-    }
-
-    /**
-     * Get a short Description of the Task
-     *
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return "[Deploy] {$this->options['from']} to {$this->options['to']}";
-    }
-
-    /**
      * Executes the Command
      *
-     * @throws ErrorException
+     * @throws ErrorException when either from or to option is not given
      *
      * @return bool
      */
@@ -65,6 +45,8 @@ class DeployTask extends AbstractTask
     }
 
     /**
+     * Gets the default values
+     *
      * @return array
      */
     public function getDefaults(): array
@@ -76,22 +58,48 @@ class DeployTask extends AbstractTask
     }
 
     /**
+     * Get a short Description of the Task
+     *
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return "[Deploy] {$this->options['from']} to {$this->options['to']}";
+    }
+
+    /**
+     * Get the Name/Code of the Task
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'deploy';
+    }
+
+    /**
+     * Gets the flag for the rsync command
+     *
      * @return string
      */
     protected function getRsyncFlags(): string
     {
+        $result = '-rvz';
+
         if (isset($this->options['flags'])) {
-            return $this->options['flags'];
+            $result = $this->options['flags'];
         }
 
         if (isset($this->options['strict']) && $this->options['strict']) {
-            return '-rvz --delete --no-o';
+            $result = '-rvz --delete --no-o';
         }
 
-        return '-rvz';
+        return $result;
     }
 
     /**
+     * Gets the target folder where the files should be deployed to
+     *
      * @return string
      */
     protected function getTarget(): string

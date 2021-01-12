@@ -17,7 +17,7 @@ class PrepareTask extends MagePrepareTask
     /**
      * Executes the task.
      *
-     * @throws SkipException
+     * @throws SkipException when method is invoked
      *
      * @return bool
      */

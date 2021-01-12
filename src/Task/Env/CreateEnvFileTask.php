@@ -24,7 +24,7 @@ class CreateEnvFileTask extends AbstractTask
     /**
      * Executes the Command
      *
-     * @throws ErrorException
+     * @throws ErrorException when no env file is given in the options
      *
      * @return bool
      */

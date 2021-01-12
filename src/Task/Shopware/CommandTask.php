@@ -16,33 +16,9 @@ use Mage\Task\ExecuteOnRollbackInterface;
 class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
 {
     /**
-     * Get the Name/Code of the Task
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return 'shopware/command';
-    }
-
-    /**
-     * Get a short Description of the Task
-     *
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        try {
-            return sprintf('[Shopware] Execute command "%s" with flags: "%s"', $this->getCommand(), $this->options['flags']);
-        } catch (ErrorException $exception) {
-            return '[Shopware] Execute command [missing parameters]';
-        }
-    }
-
-    /**
      * Executes the Command
      *
-     * @throws SkipException
+     * @throws SkipException when execOnRollback option is set to false
      *
      * @return bool
      */
@@ -72,7 +48,7 @@ class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
     /**
      * Get the SW command to be run.
      *
-     * @throws ErrorException
+     * @throws ErrorException when no cmd option is given
      *
      * @return string
      */
@@ -86,6 +62,8 @@ class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
     }
 
     /**
+     * Gets the default values
+     *
      * @return array
      */
     public function getDefaults(): array
@@ -99,5 +77,37 @@ class CommandTask extends AbstractTask implements ExecuteOnRollbackInterface
             'execOnRollback' => false,
             'timeout' => 120,
         ];
+    }
+
+    /**
+     * Get a short Description of the Task
+     *
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        $result = '';
+
+        try {
+            $result = sprintf(
+                '[Shopware] Execute command "%s" with flags: "%s"',
+                $this->getCommand(),
+                $this->options['flags'],
+            );
+        } catch (ErrorException $exception) {
+            $result = '[Shopware] Execute command [missing parameters]';
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get the Name/Code of the Task
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'shopware/command';
     }
 }

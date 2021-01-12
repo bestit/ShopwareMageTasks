@@ -14,22 +14,18 @@ use Symfony\Component\Process\Process;
  * Replaces the original PrepareTask
  *
  * @class PrepareSubfolderTask
- *
  * @package BestIt\Mage\Task\Deploy\Tar
  */
 class PrepareSubfolderTask extends PrepareTask
 {
-    public function getName()
-    {
-        return 'deploy/tar/prepare';
-    }
-
-    public function getDescription()
-    {
-        return '[Deploy] Preparing Tar file for subfolder';
-    }
-
-    public function execute()
+    /**
+     * Executes the task
+     *
+     * @throws ErrorException when releases are disabled
+     *
+     * @return bool
+     */
+    public function execute(): bool
     {
         if (!$this->runtime->getEnvOption('releases', false)) {
             throw new ErrorException('This task is only available with releases enabled', 40);
@@ -50,5 +46,25 @@ class PrepareSubfolderTask extends PrepareTask
         assert($process instanceof Process);
 
         return $process->isSuccessful();
+    }
+
+    /**
+     * Gets the description of the task
+     *
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return '[Deploy] Preparing Tar file for subfolder';
+    }
+
+    /**
+     * Gets the name of the task
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'deploy/tar/prepare';
     }
 }

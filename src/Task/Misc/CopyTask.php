@@ -15,6 +15,18 @@ use Mage\Task\Exception\SkipException;
 class CopyTask extends MageCopyTask
 {
     /**
+     * Executes the task.
+     *
+     * @throws SkipException when method is invoked
+     *
+     * @return void
+     */
+    public function execute(): void
+    {
+        throw new SkipException();
+    }
+
+    /**
      * Get a short Description of the Task
      *
      * @return string
@@ -22,17 +34,5 @@ class CopyTask extends MageCopyTask
     public function getDescription(): string
     {
         return '[Misc] Skip default copy tar command.';
-    }
-
-    /**
-     * Executes the task.
-     *
-     * @throws SkipException
-     *
-     * @return void
-     */
-    public function execute(): void
-    {
-        throw new SkipException();
     }
 }

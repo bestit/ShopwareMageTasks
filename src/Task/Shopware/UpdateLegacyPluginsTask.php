@@ -19,13 +19,27 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
     protected string $pluginDir;
 
     /**
-     * Get the Name/Code of the Task
+     * Executes the command.
      *
-     * @return string
+     * @return bool
      */
-    public function getName(): string
+    public function execute(): bool
     {
-        return 'shopware/update-legacy-plugins';
+        $result = true;
+
+        $sources = ['Community', 'Local'];
+
+        if ($this->shouldSyncSourcesFolders()) {
+            foreach ($sources as $source) {
+                if (!$this->syncNamespacesForSource($source)) {
+                    $result = false;
+                }
+            }
+        } else {
+            $result = $this->syncNamespacesForSource(null);
+        }
+
+        return $result;
     }
 
     /**
@@ -39,34 +53,72 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
     }
 
     /**
-     * Executes the command.
+     * Get the Name/Code of the Task
      *
-     * @return bool
+     * @return string
      */
-    public function execute(): bool
+    public function getName(): string
     {
-        $sources = ['Community', 'Local'];
-
-        if ($this->shouldSyncSourcesFolders()) {
-            foreach ($sources as $source) {
-                if (!$this->syncNamespacesForSource($source)) {
-                    return false;
-                }
-            }
-        } else {
-            return $this->syncNamespacesForSource(null);
-        }
-
-        return true;
+        return 'shopware/update-legacy-plugins';
     }
 
     /**
+     * Gets the directory of the plugins
+     *
+     * @return string
+     */
+    protected function getPluginDir(): string
+    {
+        return $this->pluginDir;
+    }
+
+    /**
+     * Gets the root path of the plugins
+     *
+     * @param string $default
+     *
+     * @return string
+     */
+    protected function getPluginRootPath($default): string
+    {
+        return isset($this->options['plugin_root_path']) ? $this->options['plugin_root_path'] : $default;
+    }
+
+    /**
+     * Sets the directory of the plugins
+     *
+     * @param string $pluginDir
+     *
+     * @return UpdateLegacyPluginsTask
+     */
+    protected function setPluginDir($pluginDir): UpdateLegacyPluginsTask
+    {
+        $this->pluginDir = $pluginDir;
+
+        return $this;
+    }
+
+    /**
+     * Returns whether source folder should be synced
+     *
+     * @return bool
+     */
+    protected function shouldSyncSourcesFolders(): bool
+    {
+        return isset($this->options['sync_sources_folders']) ? $this->options['sync_sources_folders'] : false;
+    }
+
+    /**
+     * Returns whether namespace should be synced
+     *
      * @param string|null $source
      *
      * @return bool
      */
     protected function syncNamespacesForSource($source = null): bool
     {
+        $result = true;
+
         $namespaces = ['Backend', 'Core', 'Frontend'];
         $rootPath = $this->runtime->getEnvOption('from', '.');
         $pathToPluginDir = $this->getPluginRootPath("{$rootPath}/legacy_plugins/");
@@ -79,48 +131,11 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
             $this->setPluginDir("{$pathToPluginDir}/{$namespace}/");
 
             if (!parent::execute()) {
-                return false;
+                $result = false;
+                break;
             }
         }
 
-        return true;
-    }
-
-    /**
-     * @param string $pluginDir
-     *
-     * @return UpdateLegacyPluginsTask
-     */
-    protected function setPluginDir($pluginDir)
-    {
-        $this->pluginDir = $pluginDir;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getPluginDir(): string
-    {
-        return $this->pluginDir;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function shouldSyncSourcesFolders(): bool
-    {
-        return isset($this->options['sync_sources_folders']) ? $this->options['sync_sources_folders'] : false;
-    }
-
-    /**
-     * @param string $default
-     *
-     * @return string
-     */
-    protected function getPluginRootPath($default): string
-    {
-        return isset($this->options['plugin_root_path']) ? $this->options['plugin_root_path'] : $default;
+        return $result;
     }
 }

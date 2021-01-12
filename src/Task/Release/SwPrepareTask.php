@@ -14,26 +14,6 @@ use Mage\Task\AbstractTask;
 class SwPrepareTask extends AbstractTask
 {
     /**
-     * Get the Name/Code of the Task
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return 'prepare/sw-structure';
-    }
-
-    /**
-     * Get a short Description of the Task
-     *
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return '[Prepare] Creating releases directory and copying contents of current into it.';
-    }
-
-    /**
      * Executes the task.
      *
      * @return bool
@@ -55,6 +35,8 @@ class SwPrepareTask extends AbstractTask
     }
 
     /**
+     * Gets the default values
+     *
      * @return array
      */
     public function getDefaults(): array
@@ -62,5 +44,25 @@ class SwPrepareTask extends AbstractTask
         return [
             'timeout' => 120,
         ];
+    }
+
+    /**
+     * Get a short Description of the Task
+     *
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return '[Prepare] Creating releases directory and copying contents of current into it.';
+    }
+
+    /**
+     * Get the Name/Code of the Task
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return 'prepare/sw-structure';
     }
 }

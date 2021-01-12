@@ -6,6 +6,7 @@ namespace BestIt\Mage\Task\Misc;
 
 use Mage\Task\BuiltIn\Composer\InstallTask;
 use function array_merge;
+use function Couchbase\defaultDecoder;
 use function glob;
 use function implode;
 use function is_array;
@@ -32,7 +33,7 @@ class SubComposerInstallTask extends InstallTask
 
         foreach (is_array($globs) ? $globs : [] as $glob) {
             foreach (glob($glob) as $composerFolder) {
-                $newFlag = sprintf('-d "%s"', dirname($composerFolder), $options['flags']);
+                $newFlag = sprintf('-d "%s"', dirname($composerFolder));
 
                 if ($lastFlag) {
                     $options['flags'] = str_replace($lastFlag, $newFlag, $options['flags']);

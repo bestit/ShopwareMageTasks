@@ -47,7 +47,7 @@ class DenyRobotsTxtTaskTest extends TestCase
     /**
      * Checks if the robots.txt is created.
      *
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException when the file can not be found
      *
      * @return void
      */
@@ -64,7 +64,7 @@ class DenyRobotsTxtTaskTest extends TestCase
     /**
      * Checks if the robots.txt is created in the designated folder.
      *
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException when the file can not be found
      *
      * @return void
      */
