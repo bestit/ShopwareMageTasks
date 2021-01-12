@@ -1,39 +1,41 @@
 {
     "name": "bestit/shopware-mage-tasks",
-    "suggest": {
-        "b3nl/sw-migrations": "This library is needed if you want to use the task shopware/migrate"
-    },
     "description": "Common tasks to deploy a shopware project using MagePHP",
     "keywords": ["Shopware", "MagePHP", "Deployment"],
-    "require": {
-        "php": "^7.0",
-        "andres-montanez/magallanes": "^3.0 || ^4.0",
-        "league/flysystem": "^1.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "BestIt\\Mage\\Tasks\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "BestIt\\Mage\\Tasks\\": "tests/"
-        }
-    },
     "license": "MIT",
     "authors": [
         {
-            "name": "Ahmad El-Bardan",
-            "email": "ahmad.el-bardan@bestit-online.de"
+            "name": "best it AG",
+            "email": "info@bestit.de"
         }
     ],
+    "require": {
+        "php": "^7.4",
+        "andres-montanez/magallanes": "^4.0",
+        "league/flysystem": "^1.0"
+    },
     "minimum-stability": "stable",
     "require-dev": {
-        "best-it/php_codesniffer": "^1.2 || ^2.0",
-        "phpunit/phpunit": "^6.0",
-        "league/flysystem-memory": "^1.0",
-        "vlucas/phpdotenv": "^3.3",
-        "mikey179/vfsstream": "^1.6.6"
+        "phpunit/phpunit": "^9.5",
+        "league/flysystem-memory": "^1.0.2",
+        "vlucas/phpdotenv": "^5.2.0",
+        "mikey179/vfsstream": "^1.6.8"
+    },
+    "suggest": {
+        "b3nl/sw-migrations": "This library is needed if you want to use the task shopware/migrate"
+    },
+    "autoload": {
+        "psr-4": {
+            "BestIt\\Mage\\": "src/"
+        },
+        "files": [
+            "src/Task/LegacyTasks.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BestIt\\Mage\\": "tests/"
+        }
     },
     "scripts": {
         "low-level-tests": [

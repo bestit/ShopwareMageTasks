@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BestIt\Mage\Tasks;
+namespace BestIt\Mage;
 
 use Mage\Runtime\Runtime;
 use Mage\Task\AbstractTask;
@@ -14,7 +14,7 @@ use function ucfirst;
 /**
  * Helps you test the getters of the task.
  *
- * @package BestIt\Mage\Tasks
+ * @package BestIt\Mage
  */
 trait TestGettersTrait
 {
@@ -23,7 +23,7 @@ trait TestGettersTrait
      *
      * @var AbstractTask|null
      */
-    protected $fixture;
+    protected ?AbstractTask $fixture = null;
 
     /**
      * Asserts that two variables have the same type and value.
@@ -36,7 +36,7 @@ trait TestGettersTrait
      *
      * @return void
      */
-    abstract public static function assertSame($expected, $actual, $message = '');
+    abstract public static function assertSame($expected, $actual, $message = ''): void;
 
     /**
      * Returns a test double for the specified class.
@@ -67,7 +67,7 @@ trait TestGettersTrait
      *
      * @return void
      */
-    public function testGetters(string $getterProperty, $value)
+    public function testGetters(string $getterProperty, $value): void
     {
         assert($this->fixture instanceof AbstractTask);
 
