@@ -1,13 +1,18 @@
 <?xml version="1.0"?>
 <ruleset name="bestit/ShopwareMageTasks">
-    <config name="testVersion" value="7.0" />
+    <config name="testVersion" value="7.4" />
 
-    <rule ref="./vendor/best-it/php_codesniffer/src/Standards/BestIt/ruleset.xml">
-        <exclude name="BestIt.DocTags.DisallowedConstantTags.TagNotAllowed" />
+    <rule ref="BestIt">
         <exclude name="BestIt.DocTags.RequiredClassTags.TagOccurrenceMinAuthor" />
-        <exclude name="BestIt.TypeHints.ReturnTypeDeclaration.MissingReturnTypeHint" />
-        <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing" />
-        <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint" />
+    </rule>
+
+    <rule ref="BestIt.Functions.NoSimplePropertyMethod.ShouldUseTypedPropertyDirectly">
+        <exclude-pattern>.app/src/LocalFilesystemAwareTrait.php</exclude-pattern>
+        <exclude-pattern>.app/src/Task/Shopware/UpdateLegacyPluginsTask.php</exclude-pattern>
+    </rule>
+
+    <rule ref="BestIt.NamingConventions.CamelCaseVariable.NotCamelCase">
+        <exclude-pattern>.app/tests/Task/Env/CreateEnvFileTaskTest.php</exclude-pattern>
     </rule>
 
     <file>./src/</file>

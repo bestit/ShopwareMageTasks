@@ -8,22 +8,22 @@ This package includes common tasks to deploy a shopware project using [MagePHP](
 magephp:
     php_executable: /usr/bin/php # Leave this empty if you want to use the globally installed php executable.
     custom_tasks:
-        - BestIt\Mage\Tasks\Deploy\DeployTask
-        - BestIt\Mage\Tasks\Deploy\Tar\PrepareSubfolderTask     # replaces the original deploy/tar/prepare task
-        - BestIt\Mage\Tasks\Env\CreateEnvFileTask        
-        - BestIt\Mage\Tasks\Env\SetEnvParametersTask
-        - BestIt\Mage\Tasks\Env\RecursiveSetEnvParametersTask
-        - BestIt\Mage\Tasks\Misc\CopyTask
-        - BestIt\Mage\Tasks\Misc\DenyRobotsTxtTask        
-        - BestIt\Mage\Tasks\Misc\SubComposerInstallTask        
-        - BestIt\Mage\Tasks\Opcode\BuildCleaner
-        - BestIt\Mage\Tasks\Opcode\CleanReset
-        - BestIt\Mage\Tasks\Release\PrepareTask
-        - BestIt\Mage\Tasks\Release\SwPrepareTask
-        - BestIt\Mage\Tasks\Shopware\ApplyMigrationsTask
-        - BestIt\Mage\Tasks\Shopware\CommandTask
-        - BestIt\Mage\Tasks\Shopware\UpdateLegacyPluginsTask
-        - BestIt\Mage\Tasks\Shopware\UpdatePluginsTask
+        - BestIt\Mage\Task\Deploy\DeployTask
+        - BestIt\Mage\Task\Deploy\Tar\PrepareSubfolderTask     # replaces the original deploy/tar/prepare task
+        - BestIt\Mage\Task\Env\CreateEnvFileTask        
+        - BestIt\Mage\Task\Env\SetEnvParametersTask
+        - BestIt\Mage\Task\Env\RecursiveSetEnvParametersTask
+        - BestIt\Mage\Task\Misc\CopyTask
+        - BestIt\Mage\Task\Misc\DenyRobotsTxtTask        
+        - BestIt\Mage\Task\Misc\SubComposerInstallTask        
+        - BestIt\Mage\Task\Opcode\BuildCleaner
+        - BestIt\Mage\Task\Opcode\CleanReset
+        - BestIt\Mage\Task\Release\PrepareTask
+        - BestIt\Mage\Task\Release\SwPrepareTask
+        - BestIt\Mage\Task\Shopware\ApplyMigrationsTask
+        - BestIt\Mage\Task\Shopware\CommandTask
+        - BestIt\Mage\Task\Shopware\UpdateLegacyPluginsTask
+        - BestIt\Mage\Task\Shopware\UpdatePluginsTask
     environments:
         prod:
             user: apache
