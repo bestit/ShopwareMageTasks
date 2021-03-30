@@ -160,6 +160,13 @@ You just need to run the deployment script:
 vendor/bin/mage deploy <environment>
 ```
 
+## Notice
+
+These steps can be used for Shopware 5 and Shopware 6.
+
+Please keep in mind that the following steps should only be used in Shopware 6:
+- BestIt\Mage\Tasks\Misc\AllowRobotsTxtTask
+
 ## License
 
 This software is open-sourced under the MIT license.
