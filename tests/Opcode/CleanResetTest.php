@@ -42,8 +42,10 @@ class CleanResetTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
+
         $this->fixture = new CleanReset();
     }
 
@@ -54,7 +56,7 @@ class CleanResetTest extends TestCase
      *
      * @return void
      */
-    public function testExecute(bool $withDelete = true)
+    public function testExecute(bool $withDelete = true): void
     {
         assert($this->fixture instanceof CleanReset);
 
@@ -86,7 +88,7 @@ class CleanResetTest extends TestCase
             ->willReturnOnConsecutiveCalls(
                 $this->createMock(Process::class),
                 $this->createMock(Process::class),
-                $process = $this->createMock(Process::class)
+                $process = $this->createMock(Process::class),
             );
 
         $process
@@ -102,7 +104,7 @@ class CleanResetTest extends TestCase
      *
      * @return void
      */
-    public function testExecuteWithoutDelete()
+    public function testExecuteWithoutDelete(): void
     {
         $this->testExecute(false);
     }
@@ -112,7 +114,7 @@ class CleanResetTest extends TestCase
      *
      * @return void
      */
-    public function testGetDescriptionWithDocRootAndUrls()
+    public function testGetDescriptionWithDocRootAndUrls(): void
     {
         assert($this->fixture instanceof CleanReset);
 
@@ -122,7 +124,7 @@ class CleanResetTest extends TestCase
 
         static::assertSame(
             '[opcode] Calls the cleaner of ' . implode(', ', $urls) . '.',
-            $this->fixture->getDescription()
+            $this->fixture->getDescription(),
         );
     }
 
@@ -131,7 +133,7 @@ class CleanResetTest extends TestCase
      *
      * @return void
      */
-    public function testInterface()
+    public function testInterface(): void
     {
         static::assertInstanceOf(AbstractTask::class, $this->fixture);
     }

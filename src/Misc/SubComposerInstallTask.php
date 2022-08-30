@@ -44,7 +44,7 @@ class SubComposerInstallTask extends InstallTask
 
                 $this->setOptions(array_merge(
                     $options,
-                    ['flags' => trim($options['flags'])]
+                    ['flags' => trim($options['flags'])],
                 ));
 
                 $isSuccessful = parent::execute() && $isSuccessful;
@@ -62,7 +62,7 @@ class SubComposerInstallTask extends InstallTask
     public function getDefaults(): array
     {
         return [
-            'globs' => []
+            'globs' => [],
         ];
     }
 
@@ -75,7 +75,7 @@ class SubComposerInstallTask extends InstallTask
     {
         return sprintf(
             '[Composer] Sub-Install of %s',
-            implode(',', $this->getOptions()['globs'] ?? [])
+            implode(',', $this->getOptions()['globs'] ?? []),
         );
     }
 

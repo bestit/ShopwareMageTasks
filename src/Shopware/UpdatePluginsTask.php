@@ -1,38 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BestIt\Mage\Tasks\Shopware;
 
-/**
- * Class UpdatePluginsTask
- *
- * @package BestIt\Mage\Tasks\Shopware
- */
 class UpdatePluginsTask extends AbstractUpdatePluginsTask
 {
-    /**
-     * Get the Name/Code of the Task
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'shopware/update-plugins';
     }
 
-    /**
-     * Get a short Description of the Task
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return '[Shopware] Update plugins.';
     }
 
-    /**
-     * @return string
-     */
-    protected function getPluginDir()
+    protected function getPluginDir(): string
     {
         return $this->runtime->getEnvOption('from', '.') . '/plugins/';
     }

@@ -1,42 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BestIt\Mage\Tasks\Release;
 
 use Mage\Task\AbstractTask;
 
-/**
- * Class PrepareTask
- *
- * @package BestIt\Mage\Tasks\Release
- */
 class SwPrepareTask extends AbstractTask
 {
-    /**
-     * Get the Name/Code of the Task
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'prepare/sw-structure';
     }
 
-    /**
-     * Get a short Description of the Task
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return '[Prepare] Creating releases directory and copying contents of current into it.';
     }
 
-    /**
-     * Executes the task.
-     *
-     * @return bool
-     */
-    public function execute()
+    public function execute(): bool
     {
         $hostPath = rtrim($this->runtime->getEnvOption('host_path'), '/');
         $releaseId = $this->runtime->getReleaseId();
@@ -45,20 +27,17 @@ class SwPrepareTask extends AbstractTask
             'cp -rp %s/current/ %s/releases/%s',
             $hostPath,
             $hostPath,
-            $releaseId
+            $releaseId,
         );
 
         $process = $this->runtime->runRemoteCommand($cmdMakeDir, false, $this->options['timeout']);
         return $process->isSuccessful();
     }
 
-    /**
-     * @return array
-     */
-    public function getDefaults()
+    public function getDefaults(): array
     {
         return [
-            'timeout' => 120
+            'timeout' => 120,
         ];
     }
 }

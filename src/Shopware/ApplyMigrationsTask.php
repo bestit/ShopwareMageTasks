@@ -17,7 +17,7 @@ class ApplyMigrationsTask extends AbstractTask
      * @internal
      * @var string
      */
-    const DEFAULT_MIGRATION_DIR = 'sql';
+    public const DEFAULT_MIGRATION_DIR = 'sql';
 
     /**
      * The default directory where the php script is found.
@@ -25,7 +25,7 @@ class ApplyMigrationsTask extends AbstractTask
      * @internal
      * @var string
      */
-    const DEFAULT_SCRIPT_DIR = 'scripts';
+    public const DEFAULT_SCRIPT_DIR = 'scripts';
 
     /**
      * The default path to the shop.
@@ -33,7 +33,7 @@ class ApplyMigrationsTask extends AbstractTask
      * @internal
      * @var string
      */
-    const DEFAULT_SHOP_PATH = '.';
+    public const DEFAULT_SHOP_PATH = '.';
 
     /**
      * The default table suffix for the migrations table.
@@ -41,14 +41,14 @@ class ApplyMigrationsTask extends AbstractTask
      * @internal
      * @var string
      */
-    const DEFAULT_TABLE_SUFFIX = 'bestit';
+    public const DEFAULT_TABLE_SUFFIX = 'bestit';
 
     /**
      * Get the Name/Code of the Task
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'shopware/migrate';
     }
@@ -58,7 +58,7 @@ class ApplyMigrationsTask extends AbstractTask
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return '[Shopware] Apply migrations.';
     }
@@ -68,7 +68,7 @@ class ApplyMigrationsTask extends AbstractTask
      *
      * @return bool
      */
-    public function execute()
+    public function execute(): bool
     {
         $cmd = sprintf(
             '%s ./%s/ApplyDeltas.php --tablesuffix="%s" --migrationpath="./%s/" --shoppath="%s" --mode=update',
@@ -76,7 +76,7 @@ class ApplyMigrationsTask extends AbstractTask
             $this->getScriptDirName(),
             $this->getTableSuffix(),
             $this->getMigrationDirName(),
-            $this->getPathToShopware()
+            $this->getPathToShopware(),
         );
 
         $process = $this->runtime->runRemoteCommand($cmd, true, $this->options['timeout']);
@@ -89,10 +89,10 @@ class ApplyMigrationsTask extends AbstractTask
      *
      * @return array
      */
-    public function getDefaults()
+    public function getDefaults(): array
     {
         return [
-            'timeout' => 120
+            'timeout' => 120,
         ];
     }
 

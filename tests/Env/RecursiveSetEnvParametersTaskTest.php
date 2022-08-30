@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BestIt\Mage\Tasks\Env;
 
 use org\bovigo\vfs\vfsStream;
@@ -15,24 +17,18 @@ use PHPUnit\Framework\TestCase;
  */
 class RecursiveSetEnvParametersTaskTest extends TestCase
 {
-    /**
-     * @var RecursiveSetEnvParametersTask
-     */
-    private $service;
-    /**
-     * @var  vfsStreamDirectory
-     */
-    private $directoryMock;
+    private RecursiveSetEnvParametersTask $service;
 
-    /**
-     * @return void
-     */
-    public function setUp()
+    private vfsStreamDirectory $directoryMock;
+
+    protected function setUp(): void
     {
+        parent::setUp();
+
         $this->directoryMock = vfsStream::setup('Module');
         $distMock = new vfsStreamFile('parameter.xml.dist');
         $distMock->setContent(
-            file_get_contents(__DIR__ . '/fixtures/RecursiveSetEnvParametersTask/parameter.xml.dist')
+            file_get_contents(__DIR__ . '/fixtures/RecursiveSetEnvParametersTask/parameter.xml.dist'),
         );
         $moduleOnePath = new vfsStreamDirectory('ModuleOne');
         $moduleOnePath->addChild($distMock);
@@ -46,24 +42,18 @@ class RecursiveSetEnvParametersTaskTest extends TestCase
         $this->service->setOptions([
             'deleteTargets' => false,
             'fileName' => 'parameter.xml.dist',
-            'directory' => vfsStream::url('Module')
+            'directory' => vfsStream::url('Module'),
         ]);
 
         parent::setUp();
     }
 
-    /**
-     * @return void
-     */
-    public function testConstants()
+    public function testConstants(): void
     {
         $this->assertEquals('.dist', RecursiveSetEnvParametersTask::DIST_FILE_EXTENSION);
     }
 
-    /**
-     * @return void
-     */
-    public function testExecute()
+    public function testExecute(): void
     {
         $this->service->execute();
 
@@ -72,19 +62,16 @@ class RecursiveSetEnvParametersTaskTest extends TestCase
         $this->assertTrue($this->directoryMock->hasChild('ModuleTwo/parameter.xml'));
         $this->assertTrue($this->directoryMock->hasChild('ModuleTwo/parameter.xml.dist'));
 
-        /** @var vfsStreamFile $mockedFile */
         $mockedFile = $this->directoryMock->getChild('ModuleTwo/parameter.xml');
+        assert($mockedFile instanceof vfsStreamFile);
 
         $this->assertStringEqualsFile(
             __DIR__ . '/fixtures/RecursiveSetEnvParametersTask/parameter.xml.dist',
-            $mockedFile->getContent()
+            $mockedFile->getContent(),
         );
     }
 
-    /**
-     * @return void
-     */
-    public function testGetDefaults()
+    public function testGetDefaults(): void
     {
         $defaults = $this->service->getDefaults();
 
@@ -92,21 +79,15 @@ class RecursiveSetEnvParametersTaskTest extends TestCase
         $this->assertEquals(false, $defaults['deleteTargets']);
     }
 
-    /**
-     * @return void
-     */
-    public function testGetDescription()
+    public function testGetDescription(): void
     {
         $this->assertEquals(
             '[Env] Set parameters from env variables in dist files recursively.',
-            $this->service->getDescription()
+            $this->service->getDescription(),
         );
     }
 
-    /**
-     * @return void
-     */
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('env/recursive-set-env-parameters', $this->service->getName());
     }

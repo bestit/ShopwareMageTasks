@@ -23,7 +23,7 @@ trait TestGettersTrait
      *
      * @var AbstractTask|null
      */
-    protected $fixture;
+    protected ?AbstractTask $fixture = null;
 
     /**
      * Asserts that two variables have the same type and value.
@@ -36,7 +36,7 @@ trait TestGettersTrait
      *
      * @return void
      */
-    abstract public static function assertSame($expected, $actual, $message = '');
+    abstract public static function assertSame($expected, $actual, string $message = ''): void;
 
     /**
      * Returns a test double for the specified class.
@@ -46,7 +46,7 @@ trait TestGettersTrait
      *
      * @return MockObject
      */
-    abstract protected function createMock($originalClassName);
+    abstract protected function createMock(string $originalClassName): MockObject;
 
     /**
      * Returns the asserts for the getter check.
@@ -67,7 +67,7 @@ trait TestGettersTrait
      *
      * @return void
      */
-    public function testGetters(string $getterProperty, $value)
+    public function testGetters(string $getterProperty, $value): void
     {
         assert($this->fixture instanceof AbstractTask);
 

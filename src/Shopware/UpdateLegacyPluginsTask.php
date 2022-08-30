@@ -1,47 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BestIt\Mage\Tasks\Shopware;
 
-/**
- * Class UpdateLegacyPluginsTask
- *
- * @package BestIt\Mage\Tasks\Shopware
- */
 class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
 {
-    /**
-     * Temporary marker for every plugin namespace.
-     *
-     * @var string
-     */
-    protected $pluginDir;
+    protected string $pluginDir;
 
-    /**
-     * Get the Name/Code of the Task
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'shopware/update-legacy-plugins';
     }
 
-    /**
-     * Get a short Description of the Task
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return '[Shopware] Update legacy plugins.';
     }
 
-    /**
-     * Executes the command.
-     *
-     * @return bool
-     */
-    public function execute()
+    public function execute(): bool
     {
         $sources = ['Community', 'Local'];
 
@@ -58,12 +35,7 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
         return true;
     }
 
-    /**
-     * @param string|null $source
-     *
-     * @return bool
-     */
-    protected function syncNamespacesForSource($source = null)
+    protected function syncNamespacesForSource($source = null): bool
     {
         $namespaces = ['Backend', 'Core', 'Frontend'];
         $rootPath = $this->runtime->getEnvOption('from', '.');
@@ -84,40 +56,24 @@ class UpdateLegacyPluginsTask extends AbstractUpdatePluginsTask
         return true;
     }
 
-    /**
-     * @param string $pluginDir
-     *
-     * @return UpdateLegacyPluginsTask
-     */
-    protected function setPluginDir($pluginDir)
+    protected function setPluginDir($pluginDir): self
     {
         $this->pluginDir = $pluginDir;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    protected function getPluginDir()
+    protected function getPluginDir(): string
     {
         return $this->pluginDir;
     }
 
-    /**
-     * @return bool
-     */
-    protected function shouldSyncSourcesFolders()
+    protected function shouldSyncSourcesFolders(): bool
     {
         return isset($this->options['sync_sources_folders']) ? $this->options['sync_sources_folders'] : false;
     }
 
-    /**
-     * @param string $default
-     *
-     * @return string
-     */
-    protected function getPluginRootPath($default)
+    protected function getPluginRootPath(string $default): string
     {
         return isset($this->options['plugin_root_path']) ? $this->options['plugin_root_path'] : $default;
     }

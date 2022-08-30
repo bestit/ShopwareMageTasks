@@ -1,20 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BestIt\Mage\Tasks\Shopware;
 
 use Mage\Task\AbstractTask as MageAbstractTask;
 
-/**
- * Class AbstractTask
- *
- * @package BestIt\Mage\Tasks\Shopware
- */
 abstract class AbstractTask extends MageAbstractTask
 {
-    /**
-     * @return string
-     */
-    protected function getPathToPhpExecutable()
+    protected function getPathToPhpExecutable(): string
     {
         $phpExecutable = 'php';
 
@@ -32,12 +26,7 @@ abstract class AbstractTask extends MageAbstractTask
         return $phpExecutable;
     }
 
-    /**
-     * Returns the console script path if configured, otherwise ./bin/console as default value.
-     *
-     * @return string The configured or default console script path.
-     */
-    protected function getPathToConsoleScript()
+    protected function getPathToConsoleScript(): string
     {
         $consoleScriptPath = './bin/console';
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BestIt\Mage\Tasks\Misc;
 
 use Mage\Task\BuiltIn\Deploy\Tar\CopyTask as MageCopyTask;
@@ -17,7 +19,7 @@ class CopyTask extends MageCopyTask
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return '[Misc] Skip default copy tar command.';
     }
@@ -29,7 +31,7 @@ class CopyTask extends MageCopyTask
      *
      * @return void
      */
-    public function execute()
+    public function execute(): void
     {
         throw new SkipException();
     }

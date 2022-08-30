@@ -1,45 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BestIt\Mage\Tasks\Deploy;
 
 use Mage\Task\AbstractTask;
 use Mage\Task\Exception\ErrorException;
 
-/**
- * Class DeployTask
- *
- * @package BestIt\Mage\Tasks\Deploy
- */
 class DeployTask extends AbstractTask
 {
-    /**
-     * Get the Name/Code of the Task
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'deploy';
     }
 
-    /**
-     * Get a short Description of the Task
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return "[Deploy] {$this->options['from']} to {$this->options['to']}";
     }
 
-    /**
-     * Executes the Command
-     *
-     * @throws ErrorException
-     *
-     * @return bool
-     */
-    public function execute()
+    public function execute(): bool
     {
         if (!isset($this->options['from'], $this->options['to'])) {
             throw new ErrorException();
@@ -55,28 +35,22 @@ class DeployTask extends AbstractTask
             $this->options['from'],
             $this->runtime->getEnvOption('user', $this->runtime->getCurrentUser()),
             $this->runtime->getWorkingHost(),
-            $this->getTarget()
+            $this->getTarget(),
         );
 
         $process = $this->runtime->runLocalCommand($command, $this->options['timeout']);
         return $process->isSuccessful();
     }
 
-    /**
-     * @return array
-     */
-    public function getDefaults()
+    public function getDefaults(): array
     {
         return [
             'strict' => true,
-            'timeout' => 120
+            'timeout' => 120,
         ];
     }
 
-    /**
-     * @return string
-     */
-    protected function getRsyncFlags()
+    protected function getRsyncFlags(): string
     {
         if (isset($this->options['flags'])) {
             return $this->options['flags'];
@@ -89,10 +63,7 @@ class DeployTask extends AbstractTask
         return '-rvz';
     }
 
-    /**
-     * @return string
-     */
-    protected function getTarget()
+    protected function getTarget(): string
     {
         $targetDir = rtrim($this->runtime->getEnvOption('host_path'), '/');
         $currentReleaseId = $this->runtime->getReleaseId();

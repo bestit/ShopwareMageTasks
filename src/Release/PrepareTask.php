@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BestIt\Mage\Tasks\Release;
 
 use Mage\Task\BuiltIn\Deploy\Release\PrepareTask as MagePrepareTask;
@@ -19,7 +21,7 @@ class PrepareTask extends MagePrepareTask
      *
      * @return bool
      */
-    public function execute()
+    public function execute(): bool
     {
         throw new SkipException('Skip default prepare task.');
     }

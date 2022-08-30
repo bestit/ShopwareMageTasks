@@ -23,22 +23,24 @@ class DenyRobotsTxtTaskTest extends TestCase
      *
      * @var FilesystemInterface|null
      */
-    private $filesystem;
+    private ?FilesystemInterface $filesystem = null;
 
     /**
      * The tested class.
      *
      * @var DenyRobotsTxtTask|null
      */
-    private $fixture;
+    private ?DenyRobotsTxtTask $fixture = null;
 
     /**
      * Sets up the test.
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
+
         $this->fixture = new DenyRobotsTxtTask();
 
         $this->fixture->setFilesystem($this->filesystem = new Filesystem(new MemoryAdapter()));
@@ -51,13 +53,13 @@ class DenyRobotsTxtTaskTest extends TestCase
      *
      * @return void
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         $this->fixture->execute();
 
         static::assertSame(
             "User-agent: *\nDisallow: /\n",
-            $this->filesystem->read('robots.txt')
+            $this->filesystem->read('robots.txt'),
         );
     }
 
@@ -68,7 +70,7 @@ class DenyRobotsTxtTaskTest extends TestCase
      *
      * @return void
      */
-    public function testExecuteWithFolder()
+    public function testExecuteWithFolder(): void
     {
         $this->fixture->setOptions(['folder' => $folder = uniqid()]);
 
@@ -76,7 +78,7 @@ class DenyRobotsTxtTaskTest extends TestCase
 
         static::assertSame(
             "User-agent: *\nDisallow: /\n",
-            $this->filesystem->read($folder . '/robots.txt')
+            $this->filesystem->read($folder . '/robots.txt'),
         );
     }
 
@@ -85,7 +87,7 @@ class DenyRobotsTxtTaskTest extends TestCase
      *
      * @return void
      */
-    public function testGetDescription()
+    public function testGetDescription(): void
     {
         static::assertNotEmpty($this->fixture->getDescription());
     }
@@ -95,7 +97,7 @@ class DenyRobotsTxtTaskTest extends TestCase
      *
      * @return void
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         static::assertSame('misc/deny-robots-txt', $this->fixture->getName());
     }

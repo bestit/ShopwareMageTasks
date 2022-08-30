@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BestIt\Mage\Tasks\Env;
 
 use Mage\Task\AbstractTask;
@@ -17,7 +19,7 @@ class SetEnvParametersTask extends AbstractTask
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'env/set-env-parameters';
     }
@@ -27,7 +29,7 @@ class SetEnvParametersTask extends AbstractTask
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return '[Env] Set parameters from env variables.';
     }
@@ -39,7 +41,7 @@ class SetEnvParametersTask extends AbstractTask
      *
      * @return bool
      */
-    public function execute()
+    public function execute(): bool
     {
         $pathToConfig = $this->options['file'];
         $pathToTarget = isset($this->options['target']) ? $this->options['target'] : $pathToConfig;
@@ -82,15 +84,12 @@ class SetEnvParametersTask extends AbstractTask
         return $res !== false;
     }
 
-    /**
-     * @return array
-     */
-    public function getDefaults()
+    public function getDefaults(): array
     {
         return [
             'prefix' => 'ENV_',
             'encodeForXml' => false,
-            'placeholderWrapper' => '%'
+            'placeholderWrapper' => '%',
         ];
     }
 }

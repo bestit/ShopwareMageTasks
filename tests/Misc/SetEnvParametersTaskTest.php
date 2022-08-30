@@ -20,15 +20,17 @@ class SetEnvParametersTaskTest extends TestCase
      *
      * @var SetEnvParametersTask|null
      */
-    private $fixture;
+    private ?SetEnvParametersTask $fixture = null;
 
     /**
      * Sets up the test.
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
+
         $this->fixture = new SetEnvParametersTask();
     }
 
@@ -37,7 +39,7 @@ class SetEnvParametersTaskTest extends TestCase
      *
      * @return void
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         static::assertSame('misc/set-env-parameters', $this->fixture->getName());
     }
@@ -47,7 +49,7 @@ class SetEnvParametersTaskTest extends TestCase
      *
      * @return void
      */
-    public function testType()
+    public function testType(): void
     {
         static::assertInstanceOf(BaseTask::class, $this->fixture);
     }

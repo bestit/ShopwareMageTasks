@@ -1,13 +1,10 @@
 <?xml version="1.0"?>
 <ruleset name="bestit/ShopwareMageTasks">
-    <config name="testVersion" value="7.0" />
+    <config name="testVersion" value="8.0" />
 
     <rule ref="./vendor/best-it/php_codesniffer/src/Standards/BestIt/ruleset.xml">
         <exclude name="BestIt.DocTags.DisallowedConstantTags.TagNotAllowed" />
         <exclude name="BestIt.DocTags.RequiredClassTags.TagOccurrenceMinAuthor" />
-        <exclude name="BestIt.TypeHints.ReturnTypeDeclaration.MissingReturnTypeHint" />
-        <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing" />
-        <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint" />
     </rule>
 
     <file>./src/</file>

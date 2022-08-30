@@ -60,7 +60,7 @@ class CreateEnvFileTask extends AbstractTask
         return trim(sprintf(
             '[Env] Creates the env file %s/%s',
             getcwd(),
-            $this->options['file'] ?? ''
+            $this->options['file'] ?? '',
         ));
     }
 
@@ -76,7 +76,7 @@ class CreateEnvFileTask extends AbstractTask
 
         if ($whitelist && !$_ENV) {
             throw new ErrorException(
-                'There should be env vars. We suggest changing the php config "variables_order" to "EGPCS".'
+                'There should be env vars. We suggest changing the php config "variables_order" to "EGPCS".',
             );
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BestIt\Mage\Tasks\Env;
 
 use Mage\Task\Exception\ErrorException;
@@ -18,14 +20,14 @@ class RecursiveSetEnvParametersTask extends SetEnvParametersTask
     /**
      * File extension string for dist files.
      */
-    const DIST_FILE_EXTENSION = '.dist';
+    public const DIST_FILE_EXTENSION = '.dist';
 
     /**
      * Get the Name/Code of the Task
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'env/recursive-set-env-parameters';
     }
@@ -35,7 +37,7 @@ class RecursiveSetEnvParametersTask extends SetEnvParametersTask
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return '[Env] Set parameters from env variables in dist files recursively.';
     }
@@ -47,7 +49,7 @@ class RecursiveSetEnvParametersTask extends SetEnvParametersTask
      *
      * @return bool
      */
-    public function execute()
+    public function execute(): bool
     {
         $fileName = $this->options['fileName'];
 
@@ -59,8 +61,8 @@ class RecursiveSetEnvParametersTask extends SetEnvParametersTask
         $dirIterator = new RecursiveDirectoryIterator($directory);
         $iterator = new RecursiveIteratorIterator($dirIterator, RecursiveIteratorIterator::SELF_FIRST);
         $files = [];
-        /** @var SplFileInfo $file */
         foreach ($iterator as $file) {
+            assert($file instanceof SplFileInfo);
             if ($file->isFile() && $file->isReadable()) {
                 if (strpos($file->getFilename(), $fileName) !== false) {
                     $files[] = $file->getPathname();
@@ -90,10 +92,7 @@ class RecursiveSetEnvParametersTask extends SetEnvParametersTask
         return true;
     }
 
-    /**
-     * @return array
-     */
-    public function getDefaults()
+    public function getDefaults(): array
     {
         $defaults = parent::getDefaults();
         $defaults['deleteTargets'] = false;

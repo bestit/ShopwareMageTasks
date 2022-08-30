@@ -28,28 +28,28 @@ class CreateEnvFileTaskTest extends TestCase
     /**
      * The env file template for testing.
      */
-    const TEST_FILE = __DIR__ . '/fixtures/createEnvFileTask/test.env';
+    public const TEST_FILE = __DIR__ . '/fixtures/createEnvFileTask/test.env';
 
     /**
      * This filesystem is injected per default.
      *
      * @var FilesystemInterface|null
      */
-    private $filesystem;
+    private ?FilesystemInterface $filesystem = null;
 
     /**
      * The tested class.
      *
      * @var CreateEnvFileTask|null
      */
-    private $fixture;
+    private ?CreateEnvFileTask $fixture = null;
 
     /**
      * Loads environment vars from the test file.
      *
      * @return void
      */
-    private function loadTestEnv()
+    private function loadTestEnv(): void
     {
         Dotenv::create(dirname(self::TEST_FILE), basename(self::TEST_FILE))->overload();
     }
@@ -59,8 +59,10 @@ class CreateEnvFileTaskTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
+
         $this->fixture = new CreateEnvFileTask();
 
         $this->fixture->setFilesystem($this->filesystem = new Filesystem(new MemoryAdapter()));
@@ -73,7 +75,7 @@ class CreateEnvFileTaskTest extends TestCase
      *
      * @return void
      */
-    public function testExecuteNoEnvVars()
+    public function testExecuteNoEnvVars(): void
     {
         static::expectException(ErrorException::class);
 
@@ -92,7 +94,7 @@ class CreateEnvFileTaskTest extends TestCase
      *
      * @return void
      */
-    public function testExecuteNoFile()
+    public function testExecuteNoFile(): void
     {
         static::expectException(ErrorException::class);
 
@@ -109,7 +111,7 @@ class CreateEnvFileTaskTest extends TestCase
      *
      * @return void
      */
-    public function testExecuteNoWhitelist()
+    public function testExecuteNoWhitelist(): void
     {
         $this->loadTestEnv();
 
@@ -119,7 +121,7 @@ class CreateEnvFileTaskTest extends TestCase
 
         static::assertSame(
             file_get_contents(self::TEST_FILE),
-            $this->filesystem->read($file)
+            $this->filesystem->read($file),
         );
     }
 
@@ -131,20 +133,20 @@ class CreateEnvFileTaskTest extends TestCase
      *
      * @return void
      */
-    public function testExecuteWithInvalidWhitelist()
+    public function testExecuteWithInvalidWhitelist(): void
     {
         $this->loadTestEnv();
 
         $this->fixture->setOptions([
             'file' => $file = uniqid(),
-            'whitelist' => 'invalid-value'
+            'whitelist' => 'invalid-value',
         ]);
 
         $this->fixture->execute();
 
         static::assertSame(
             file_get_contents(self::TEST_FILE),
-            $this->filesystem->read($file)
+            $this->filesystem->read($file),
         );
     }
 
@@ -156,7 +158,7 @@ class CreateEnvFileTaskTest extends TestCase
      *
      * @return void
      */
-    public function testExecuteWithValidWhitelist()
+    public function testExecuteWithValidWhitelist(): void
     {
         $this->loadTestEnv();
 
@@ -165,15 +167,15 @@ class CreateEnvFileTaskTest extends TestCase
             'whitelist' => [
                 'foo.bar',
                 'key2',
-                'key4'
-            ]
+                'key4',
+            ],
         ]);
 
         $this->fixture->execute();
 
         static::assertSame(
             "foo.bar=\"acme\"\nkey2=\"value2\"\nkey4=0\n",
-            $this->filesystem->read($file)
+            $this->filesystem->read($file),
         );
     }
 
@@ -182,14 +184,14 @@ class CreateEnvFileTaskTest extends TestCase
      *
      * @return void
      */
-    public function testGetDefaults()
+    public function testGetDefaults(): void
     {
         static::assertSame(
             [
                 'file' => '.env',
                 'whitelist' => [],
             ],
-            $this->fixture->getDefaults()
+            $this->fixture->getDefaults(),
         );
     }
 
@@ -198,7 +200,7 @@ class CreateEnvFileTaskTest extends TestCase
      *
      * @return void
      */
-    public function testGetDescription()
+    public function testGetDescription(): void
     {
         static::assertNotEmpty($this->fixture->getDescription());
     }
@@ -208,7 +210,7 @@ class CreateEnvFileTaskTest extends TestCase
      *
      * @return void
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         static::assertSame('env/create-env-file', $this->fixture->getName());
     }

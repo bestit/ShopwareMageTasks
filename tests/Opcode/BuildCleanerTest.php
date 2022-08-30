@@ -42,8 +42,10 @@ class BuildCleanerTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
+
         $this->fixture = new BuildCleaner();
     }
 
@@ -52,7 +54,7 @@ class BuildCleanerTest extends TestCase
      *
      * @return void
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         assert($this->fixture instanceof BuildCleaner);
 
@@ -82,7 +84,7 @@ if (function_exists('opcache_reset')) {
             ->with(sprintf(
                 'echo "%s" > %s/apc_clear.php',
                 $template,
-                $docRoot
+                $docRoot,
             ))
             ->willReturn($process = $this->createMock(Process::class));
 
@@ -99,7 +101,7 @@ if (function_exists('opcache_reset')) {
      *
      * @return void
      */
-    public function testGetDescriptionWithDocRoot()
+    public function testGetDescriptionWithDocRoot(): void
     {
         assert($this->fixture instanceof BuildCleaner);
 
@@ -113,7 +115,7 @@ if (function_exists('opcache_reset')) {
      *
      * @return void
      */
-    public function testInterface()
+    public function testInterface(): void
     {
         static::assertInstanceOf(AbstractTask::class, $this->fixture);
     }

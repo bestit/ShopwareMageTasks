@@ -19,13 +19,6 @@ class ApplyMigrationsTaskTest extends TestCase
     use TestGettersTrait;
 
     /**
-     * The tested class.
-     *
-     * @var ApplyMigrationsTask|null
-     */
-    protected $fixture;
-
-    /**
      * Returns the asserts for the getter check.
      *
      * @see TestGettersTrait::testGetters
@@ -46,8 +39,10 @@ class ApplyMigrationsTaskTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
+
         $this->fixture = new ApplyMigrationsTask();
     }
 
@@ -56,7 +51,7 @@ class ApplyMigrationsTaskTest extends TestCase
      *
      * @return void
      */
-    public function testExecuteWithCustomValues()
+    public function testExecuteWithCustomValues(): void
     {
         assert($this->fixture instanceof ApplyMigrationsTask);
 
@@ -69,7 +64,7 @@ class ApplyMigrationsTaskTest extends TestCase
                 'php ./php5/ApplyDeltas.php --tablesuffix="foobar" --migrationpath="./migrations/" ' .
                     '--shoppath="./shopware" --mode=update',
                 true,
-                120
+                120,
             )
             ->willReturn($process = $this->createMock(Process::class));
 
@@ -93,7 +88,7 @@ class ApplyMigrationsTaskTest extends TestCase
      *
      * @return void
      */
-    public function testExecuteWithDefaults()
+    public function testExecuteWithDefaults(): void
     {
         assert($this->fixture instanceof ApplyMigrationsTask);
 
@@ -106,7 +101,7 @@ class ApplyMigrationsTaskTest extends TestCase
                 'php ./scripts/ApplyDeltas.php --tablesuffix="bestit" --migrationpath="./sql/" ' .
                     '--shoppath="." --mode=update',
                 true,
-                120
+                120,
             )
             ->willReturn($process = $this->createMock(Process::class));
 

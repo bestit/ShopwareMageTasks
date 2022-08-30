@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BestIt\Mage\Tasks\Deploy\Tar;
 
+use Mage\Task\BuiltIn\Deploy\Tar\PrepareTask;
 use Mage\Task\Exception\ErrorException;
 use Symfony\Component\Process\Process;
-use Mage\Task\BuiltIn\Deploy\Tar\PrepareTask;
 
 /**
  * Tar Task - Create temporal Tar of files in a specific subfolder
@@ -17,17 +19,17 @@ use Mage\Task\BuiltIn\Deploy\Tar\PrepareTask;
  */
 class PrepareSubfolderTask extends PrepareTask
 {
-    public function getName()
+    public function getName(): string
     {
         return 'deploy/tar/prepare';
     }
 
-    public function getDescription()
+    public function getDescription(): string
     {
         return '[Deploy] Preparing Tar file for subfolder';
     }
 
-    public function execute()
+    public function execute(): bool
     {
         if (!$this->runtime->getEnvOption('releases', false)) {
             throw new ErrorException('This task is only available with releases enabled', 40);
@@ -44,8 +46,8 @@ class PrepareSubfolderTask extends PrepareTask
         // create tar of a subfolder
         $cmdTar = sprintf('%s %s %s %s -C %s .', $tarPath, $flags, $tarLocal, $excludes, $from);
 
-        /** @var Process $process */
         $process = $this->runtime->runLocalCommand($cmdTar, 300);
+        assert($process instanceof Process);
 
         return $process->isSuccessful();
     }

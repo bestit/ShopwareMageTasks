@@ -20,7 +20,7 @@ class BuildCleaner extends AbstractTask
      * @internal
      * @var string
      */
-    const DEFAULT_DOC_ROOT = '.';
+    public const DEFAULT_DOC_ROOT = '.';
 
     /**
      * Returns document where the cleaner is saved.
@@ -51,7 +51,7 @@ class BuildCleaner extends AbstractTask
     {
         return sprintf(
             '[opcode] Creates the cleaner in %s',
-            $this->getDocumentRoot()
+            $this->getDocumentRoot(),
         );
     }
 
@@ -81,7 +81,7 @@ if (function_exists('opcache_reset')) {
         $process = $this->runtime->runCommand(sprintf(
             'echo "%s" > %s/apc_clear.php',
             $template,
-            $this->getDocumentRoot()
+            $this->getDocumentRoot(),
         ));
 
         return $process->isSuccessful();

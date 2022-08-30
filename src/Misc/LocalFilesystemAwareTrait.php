@@ -22,7 +22,7 @@ trait LocalFilesystemAwareTrait
      *
      * @var FilesystemInterface|null
      */
-    protected $filesystem = null;
+    protected ?FilesystemInterface $filesystem = null;
 
     /**
      * Returns the used file system.
@@ -55,7 +55,7 @@ trait LocalFilesystemAwareTrait
      *
      * @return $this
      */
-    public function setFilesystem(FilesystemInterface $filesystem)
+    public function setFilesystem(FilesystemInterface $filesystem): self
     {
         $this->filesystem = $filesystem;
 
